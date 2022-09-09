@@ -39,7 +39,6 @@
                             <th><strong>TELEPHONES</strong></th>
                             <th><strong>ANNEE DE NAISSANCE</strong></th>
                             <th><strong>AGENT COMM</strong></th>
-                            <th><strong>STATUS</strong></th>
                             <th><strong>ACTIONS</strong></th>
                         </tr>
                         </thead>
@@ -126,14 +125,11 @@
                         var label;
                         var value = data;
                         switch(value) {
-                            case "accept":
+                            case "actif":
                                 label = "bg-success";
                                 break;
-                            case "reject":
+                            case "inactif":
                                 label = "bg-danger";
-                                break;
-                            case "pending":
-                                label = "bg-info";
                                 break;
                             default:
                                 label = "bg-primary";

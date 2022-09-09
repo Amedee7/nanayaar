@@ -39,7 +39,6 @@
                             <th><strong>TELEPHONES</strong></th>
                             <th><strong>ANNEE DE NAISSANCE</strong></th>
                             <th><strong>AGENT COMM</strong></th>
-                            <th><strong>STATUS</strong></th>
                             <th><strong>ACTIONS</strong></th>
                         </tr>
                         </thead>
@@ -117,35 +116,6 @@
                             '</div>'+
                             '</div>'+
                             '</span>';
-                    }
-                },
-
-                {data: 'status', name: 'status',
-                    render: function render(data, type, full, meta) {
-                        var status = ' ';
-                        var label;
-                        var value = data;
-                        switch(value) {
-                            case "accept":
-                                label = "bg-success";
-                                break;
-                            case "reject":
-                                label = "bg-danger";
-                                break;
-                            case "pending":
-                                label = "bg-info";
-                                break;
-                            default:
-                                label = "bg-primary";
-                        }
-
-                        if (typeof value === 'undefined') {
-                            return value;
-                        }
-                        status = status + ' ' + '<span class="badge text-white ' + label + ' ">' + value + '</span>';
-
-                        return status;
-
                     }
                 },
                 

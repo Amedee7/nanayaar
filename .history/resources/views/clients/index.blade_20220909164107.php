@@ -34,12 +34,12 @@
                         <thead style="border-color:#2a80c8">
                         <tr>
                             <th><strong>NUMERO UNIQUE</strong></th>
-                            <th><strong>NOM</strong></th>
-                            <th><strong>PRENOM</strong></th>
-                            <th><strong>TELEPHONES</strong></th>
+                            <th><strong>NOM*</strong></th>
+                            <th><strong>PRENOM*</strong></th>
+                            <th><strong>TELEPHONE</strong></th>
+                            <th><strong>TELEPHONE</strong></th>
                             <th><strong>ANNEE DE NAISSANCE</strong></th>
                             <th><strong>AGENT COMM</strong></th>
-                            <th><strong>STATUS</strong></th>
                             <th><strong>ACTIONS</strong></th>
                         </tr>
                         </thead>
@@ -95,59 +95,21 @@
                 {data: 'numb_cli', name: 'numb_cli'},
                 {data: 'nom', name: 'nom'},
                 {data: 'prenom', name: 'prenom'},
-                {data: 'first_phone', name: 'first_phone',
-                    render: function render(data, type, full, meta) {
+                {data: 'first_phone', name: 'first_phone'},
+                {data: 'second_phone', name: 'second_phone'},
+                {data: 'date_naiss', name: 'date_naiss'},
+                {data: 'user.firstname', name: 'user.firstname'
+                render: function render(data, type, full, meta) {
                         return  '<span style="width: 250px;">' +
                             '<div class="d-flex align-items-center">'+
                             '<div class="ml-0">'+
-                            '<div class="text-dark-75 font-weight-bolder font-size-lg mb-0">Tel 1: '+data+'</div>'+
-                            '<a class="text-muted font-weight-bold text-hover-primary">Tel 2: '+full.second_phone+'</a>'+
+                            '<div class="text-dark-75 font-weight-bolder font-size-lg mb-0">Tel: '+data+'</div>'+
+                            '<a class="text-muted font-weight-bold text-hover-primary">Email: '+full.user.firstname+'</a>'+
                             '</div>'+
                             '</div>'+
                             '</span>';
                     }
-                },
-                {data: 'date_naiss', name: 'date_naiss'},
-                {data: 'user.firstname', name: 'user.firstname',
-                    render: function render(data, type, full, meta) {
-                        return  '<span style="width: 250px;">' +
-                            '<div class="ml-4">'+
-                            '<div class="text-dark-75 font-weight-bolder font-size-lg mb-0">'+full.user.firstname+'</div>'+
-                            '<a class="text-muted font-weight-bold text-hover-primary">'+full.user.lastname+'</a>'+
-                            '</div>'+
-                            '</div>'+
-                            '</span>';
-                    }
-                },
-
-                {data: 'status', name: 'status',
-                    render: function render(data, type, full, meta) {
-                        var status = ' ';
-                        var label;
-                        var value = data;
-                        switch(value) {
-                            case "accept":
-                                label = "bg-success";
-                                break;
-                            case "reject":
-                                label = "bg-danger";
-                                break;
-                            case "pending":
-                                label = "bg-info";
-                                break;
-                            default:
-                                label = "bg-primary";
-                        }
-
-                        if (typeof value === 'undefined') {
-                            return value;
-                        }
-                        status = status + ' ' + '<span class="badge text-white ' + label + ' ">' + value + '</span>';
-
-                        return status;
-
-                    }
-                },
+            },
                 
             ],
         });

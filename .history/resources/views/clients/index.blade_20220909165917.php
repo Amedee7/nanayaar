@@ -34,12 +34,12 @@
                         <thead style="border-color:#2a80c8">
                         <tr>
                             <th><strong>NUMERO UNIQUE</strong></th>
-                            <th><strong>NOM</strong></th>
-                            <th><strong>PRENOM</strong></th>
-                            <th><strong>TELEPHONES</strong></th>
+                            <th><strong>NOM*</strong></th>
+                            <th><strong>PRENOM*</strong></th>
+                            <th><strong>TELEPHONE</strong></th>
+                            <th><strong>TELEPHONE</strong></th>
                             <th><strong>ANNEE DE NAISSANCE</strong></th>
                             <th><strong>AGENT COMM</strong></th>
-                            <th><strong>STATUS</strong></th>
                             <th><strong>ACTIONS</strong></th>
                         </tr>
                         </thead>
@@ -101,13 +101,14 @@
                             '<div class="d-flex align-items-center">'+
                             '<div class="ml-0">'+
                             '<div class="text-dark-75 font-weight-bolder font-size-lg mb-0">Tel 1: '+data+'</div>'+
-                            '<a class="text-muted font-weight-bold text-hover-primary">Tel 2: '+full.second_phone+'</a>'+
+                            '<a class="text-muted font-weight-bold text-hover-primary">Tel 1: '+full.second_phone+'</a>'+
                             '</div>'+
                             '</div>'+
                             '</span>';
                     }
                 },
                 {data: 'date_naiss', name: 'date_naiss'},
+                // {data: 'user.firstname', name: 'user.firstname',name: 'user.lastname'},
                 {data: 'user.firstname', name: 'user.firstname',
                     render: function render(data, type, full, meta) {
                         return  '<span style="width: 250px;">' +
@@ -117,35 +118,6 @@
                             '</div>'+
                             '</div>'+
                             '</span>';
-                    }
-                },
-
-                {data: 'status', name: 'status',
-                    render: function render(data, type, full, meta) {
-                        var status = ' ';
-                        var label;
-                        var value = data;
-                        switch(value) {
-                            case "accept":
-                                label = "bg-success";
-                                break;
-                            case "reject":
-                                label = "bg-danger";
-                                break;
-                            case "pending":
-                                label = "bg-info";
-                                break;
-                            default:
-                                label = "bg-primary";
-                        }
-
-                        if (typeof value === 'undefined') {
-                            return value;
-                        }
-                        status = status + ' ' + '<span class="badge text-white ' + label + ' ">' + value + '</span>';
-
-                        return status;
-
                     }
                 },
                 

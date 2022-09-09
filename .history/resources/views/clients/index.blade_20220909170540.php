@@ -126,14 +126,11 @@
                         var label;
                         var value = data;
                         switch(value) {
-                            case "accept":
+                            case "actif":
                                 label = "bg-success";
                                 break;
-                            case "reject":
+                            case "inactif":
                                 label = "bg-danger";
-                                break;
-                            case "pending":
-                                label = "bg-info";
                                 break;
                             default:
                                 label = "bg-primary";

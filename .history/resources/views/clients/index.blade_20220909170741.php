@@ -132,7 +132,7 @@
                             case "reject":
                                 label = "bg-danger";
                                 break;
-                            case "pending":
+                                case "pending":
                                 label = "bg-info";
                                 break;
                             default:

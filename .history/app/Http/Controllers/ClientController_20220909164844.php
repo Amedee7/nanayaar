@@ -25,7 +25,7 @@ class ClientController extends Controller
     public function index()
     {
         $clients = Client::with('user')->get();
-        $users = User::all()->pluck('id', 'firstname', 'lastname')->toArray();
+        $users = User::all()->pluck('id', 'firstname', 'lastname');->toArray();
         return view('clients.index', compact('users', 'clients'));
     }
 

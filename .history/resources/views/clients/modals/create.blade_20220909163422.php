@@ -21,10 +21,10 @@
                                 </div>
                                 <div class="card-body">
                                     <div class="form-group">
-                                        <label for=""><strong>NUMERO UNIQUE</strong></label>
-                                        <input name="numb_cli" type="text" class="form-control " id="id-form-field-1">
-                                        <span class="name_err error text-danger"></span>
-                                    </div>
+                                    <label for=""><strong>NUMERO UNIQUE</strong></label>
+                                    <input name="numb_cli" type="text" class="form-control " id="id-form-field-1">
+                                    <span class="name_err error text-danger"></span>
+                                </div>
                                     <div class="form-group">
                                         <label for=""><strong>NOM</strong></label>
                                         <input name="nom" type="text" class="form-control " id="id-form-field-1">
@@ -63,6 +63,8 @@
                                             <option value="masculin" @if (old('genre') == 'masculin') selected="selected" @endif>masculin</option>
                                             <option value="feminin" @if (old('genre') == 'feminin') selected="selected" @endif>feminin</option>
                                         </select>
+
+                                        
                                         <span class="role_err error text-danger"></span>
                                     </div>
 
@@ -76,6 +78,7 @@
                                             </select> --}}
                                             <span class="role_err error text-danger"></span>
                                         </div>
+                                    </div>
                                             <div class="form-group">
                                                 <label for="mySelect2">AGENT COMMERCIAL</label>
         
@@ -86,10 +89,12 @@
                                                 </select>
                                                 <span class="role_err error text-danger"></span>
                                             </div>
+
+                                    
                                 </div>
                             </div>
 
-                    </div>
+                        </div>
                 </form>
             </div>
 

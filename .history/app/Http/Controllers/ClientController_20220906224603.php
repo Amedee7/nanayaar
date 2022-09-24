@@ -42,11 +42,11 @@ class ClientController extends Controller
         activity("Création d\'une année scolaire")
             ->causedBy(Auth::user())
             ->performedOn($client)
-            ->withProperties([
-                'Titre de L\'année scolaire'  => $client->title,
+            ->withProperties(
+                [
+                "Titre de L\'année scolaire"  => $client->title,
             ])
             ->log("Création de L\'année scolaire " . $client->title);
-
 
         return response()->json(['type' => 'success', 'message' => "L\'année scolaire a été créée avec succès"]);
     }

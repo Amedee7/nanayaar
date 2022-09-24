@@ -33,6 +33,7 @@ class ClientController extends Controller
         $request->session()->put('index', Str::random(30));
     }
     $users = User::select('name', 'id')->oldest('name')->get();
+
     return view(clients.modals.create', compact('users'));
 }
 

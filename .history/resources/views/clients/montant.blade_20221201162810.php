@@ -1,0 +1,55 @@
+<div class="modal fade" id="modal" data-backdrop="static" data-backdrop-bg="bgc-grey-tp4" data-blur="true" style="display: none;" n="truearia-hidde">
+    <div class="modal-dialog modal-dialog-centered" style="width: 1100px" role="document">
+        <div class="modal-content border-0 shadow radius-1">
+            <div class="modal-header">
+                <h5 class="modal-title text-primary-d2" id="exampleModal2Label">Ajouter une classe</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+
+            <div class="modal-body modal-scroll">
+                <form action="{{route('filieres.update', $filiere->id)}}" method="POST" id="o2d-edit-record-form">
+                    @method('PATCH')
+                    @csrf
+
+                    <div class="form-group">
+                        <label for="">NOM DE LA FILIERE</label>
+                        <input name="name" type="text" value="{{$filiere->name}}" class="form-control " id="id-form-field-1">
+                        <span class="name_err error text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="">DESCRIPTION</label>
+                        <textarea class="form-control " name="description">{{$filiere->description}}</textarea>
+                        <span class="description_err error text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label>CLASSE CONCERNEE <span class="text-danger">*</span></label>
+                        <select class="form-control" multiple name="classe[]" id="mySelect2" style="width: 100%">
+                            <option value="">--Veuillez choisir--</option>
+                            @foreach ($classes as $classe)
+                                {{-- <option value="{{ $classe->id }}">{{ $classe->name_abrege }} {{ $classe->annee_classe }}</option> --}}
+                                <option @if($classe['id'] == $classe->id) {{ 'selected' }} @endif value="{{ $classe->id }}">{{ $classe->name_abrege}}</option>
+                            @endforeach
+                        </select>
+                        <span class="classe_err error text-danger"></span>
+                    </div>
+                </form>
+            </div>
+
+            <div class="modal-footer bgc-default-l5">
+                <button type="button" id="sender" class="btn btn-primary" onclick="updateRecord();">
+                    <span id="btn-load" class="spinner-border d-none spinner-border-sm" role="status" aria-hidden="true"> </span>
+                    <b id="text-load" class="text-hide">Veuillez patienter</b>
+                    <b id="text-fix">Enregistrer</b>
+                </button>
+                <button type="button" class="btn btn-lighter-grey px-4" data-dismiss="modal">
+                    Fermer
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+

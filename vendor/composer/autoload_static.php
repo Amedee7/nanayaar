@@ -639,7 +639,6 @@ class ComposerStaticInit559a7b0e4a74bbd8978dd5172dbdd042
 
     public static $classMap = array (
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
-        'App\\Events\\Penalite' => __DIR__ . '/../..' . '/app/Events/Penalite.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
         'App\\Exports\\ClientsExport' => __DIR__ . '/../..' . '/app/Exports/ClientsExport.php',
         'App\\Http\\Controllers\\Auth\\ConfirmPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ConfirmPasswordController.php',
@@ -667,7 +666,6 @@ class ComposerStaticInit559a7b0e4a74bbd8978dd5172dbdd042
         'App\\Http\\Middleware\\TrustProxies' => __DIR__ . '/../..' . '/app/Http/Middleware/TrustProxies.php',
         'App\\Http\\Middleware\\VerifyCsrfToken' => __DIR__ . '/../..' . '/app/Http/Middleware/VerifyCsrfToken.php',
         'App\\Http\\Requests\\UpdateClientRequest' => __DIR__ . '/../..' . '/app/Http/Requests/UpdateClientRequest.php',
-        'App\\Listeners\\Penalite' => __DIR__ . '/../..' . '/app/Listeners/Penalite.php',
         'App\\Models\\Client' => __DIR__ . '/../..' . '/app/Models/Client.php',
         'App\\Models\\Permission' => __DIR__ . '/../..' . '/app/Models/Permission.php',
         'App\\Models\\Pret' => __DIR__ . '/../..' . '/app/Models/Pret.php',

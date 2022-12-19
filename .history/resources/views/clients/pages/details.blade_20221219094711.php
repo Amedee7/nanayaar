@@ -113,16 +113,6 @@
                                     @endif
                                 </a>
                             </div>
-
-                            <div class="btn-group " role="group">
-                                <button id="btnGroupDrop1" type="button" class="btn-sm btn btn-dark font-weight-bold dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <span class="flaticon2-gear"></span>
-                                </button>
-                                <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                                    <a class="dropdown-item btn" onclick="accepteRecordConfirm('{{route('clients.accepte',$client->id)}}')" title="Accepté"><span class="flaticon2-accept mr-2"></span> Accepté</a>
-                                    <a class="dropdown-item btn" onclick="accepteRecordConfirm('{{route('clients.rejete',$client->id)}}')" title="Rejeté" ><span class="flaticon2-delete mr-2"></span> Rejeté</a>            
-                                </div>
-                            </div>
                         </div>
                         <!--end::Body-->
                     </div>
@@ -139,7 +129,7 @@
                             <!--begin::Mixed Widget 5-->
                             <div class="card pt-6 mb-3 mb-xl-9">
                                 <div class="card-body pt-0 row">
-                                    <div class="col-xl-6">
+                                    <div class="col-xl-4">
                                         <div class="d-flex h-70 align-items-center">
                                             <div
                                                 class="w-100 d-flex flex-column flex-center border-dashed bg-light bg-opacity-75 py-6 px-10">

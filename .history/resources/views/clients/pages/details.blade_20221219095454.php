@@ -119,8 +119,8 @@
                                     <span class="flaticon2-gear"></span>
                                 </button>
                                 <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                                    <a class="dropdown-item btn" onclick="accepteRecordConfirm('{{route('clients.accepte',$client->id)}}')" title="Accepté"><span class="flaticon2-accept mr-2"></span> Accepté</a>
-                                    <a class="dropdown-item btn" onclick="accepteRecordConfirm('{{route('clients.rejete',$client->id)}}')" title="Rejeté" ><span class="flaticon2-delete mr-2"></span> Rejeté</a>            
+                                    <a class="dropdown-item btn" onclick="accepteRecordConfirm('{{route('clients.accepte',$clients->id)}}')" title="Accepté"><span class="flaticon2-accept mr-2"></span> Accepté</a>
+                                    <a class="dropdown-item btn" onclick="accepteRecordConfirm('{{route('clients.rejete',$clients->id)}}')" title="Rejeté" ><span class="flaticon2-delete mr-2"></span> Rejeté</a>            
                                 </div>
                             </div>
                         </div>

@@ -2,17 +2,20 @@
 
 namespace App\Http\Controllers;
 
+// use PDF;
 use App\Models\User;
 use App\Models\Client;
+use App\Models\Versement;
 use Illuminate\Http\Request;
+use App\Models\Configuration;
 use App\Exports\ClientsExport;
+
 use App\Services\NumberService;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Validator;
-
-
 
 class ClientController extends Controller
 {
@@ -36,9 +39,9 @@ class ClientController extends Controller
                 'users.avatar',
                 DB::raw("CONCAT(users.firstname,' ',users.lastname) as full_name"),
                 DB::raw("CONCAT(name,' ',lastname) as full_name_client"),
-                
-                DB::raw("date_format(clients.created_at,'%d/%m/%Y %H:%i') as created_at"),
-                DB::raw("date_format(clients.updated_at,'%d/%m/%Y %H:%i') as updated_at")
+
+                DB::raw("date_format(clients.created_at,'%d/%m/%Y à %H:%i') as created_at"),
+                DB::raw("date_format(clients.updated_at,'%d/%m/%Y à %H:%i') as updated_at")
             )->where('clients.deleted_at', null);
 
         if ($request->has('trashed')) {
@@ -75,22 +78,14 @@ class ClientController extends Controller
         );
     }
 
-    public function exportClients(){
+    public function exportClients()
+    {
         return Excel::download(new ClientsExport, 'clients.xlsx');
     }
 
     // public function exportClientsPdf(){
     //     return (new ClientsExport)->download('clients.pdf', Excel::DOMPDF);
     // }
-
-    //AFFICHAGES DES CLIENTS
-    public function moderation_clients()
-    {
-        $users = User::all()->pluck('id', 'firstname', 'lastname')->toArray();
-
-        $clients = Client::get();
-        return view('clients.moderation_clients', compact('users', 'clients'));
-    }
 
     //RECUPERATION D'UN CLIENT
     public function detailClient(Client $client)
@@ -101,7 +96,15 @@ class ClientController extends Controller
     //CREATION DU CLIENT
     public function create()
     {
-        return view('clients.create', ['lastClient' => NumberService::generateNumber(), 'users' => User::all()]);
+        $clientAttente = DB::table('clients')->where('status', 'Attente')->where('clients.deleted_at', null)->count();
+        $clientAccepté = DB::table('clients')->where('status', 'Accepté')->where('clients.deleted_at', null)->count();
+        $clientRejeté = DB::table('clients')->where('status', 'Rejeté')->where('clients.deleted_at', null)->count();
+        return view('clients.create', [
+            'lastClient' => NumberService::generateNumber(), 
+            'users' => User::all(),
+            'clientAttente'         => $clientAttente,
+            'clientAccepté'         => $clientAccepté,
+            'clientRejeté'          => $clientRejeté,]);
     }
 
     //ENREGISTREMENT DU CLIENT
@@ -336,5 +339,44 @@ class ClientController extends Controller
         } else {
             return response()->json(['type' => 'error', 'message' => 'Une erreur est survenue !']);
         }
+    }
+
+    public function generateReport()
+    {
+        $clients = Client::get();
+        $clientsState = [];
+        foreach ($clients as $item) {
+            $tmp = [
+                'id' => $item->id,
+                'numb_cli' => $item->numb_cli,
+                'name' => $item->name,
+                'first_phone' => $item->first_phone,
+                'amount_credit' => $item->amount_credit,
+                
+            ];
+
+            $clientsState[] = $tmp;
+        }
+        // dd($clientsState);
+        $clientAttente = DB::table('clients')->where('status', 'Attente')->where('clients.deleted_at', null)->count();
+        $clientAccepté = DB::table('clients')->where('status', 'Accepté')->where('clients.deleted_at', null)->count();
+        $clientRejeté = DB::table('clients')->where('status', 'Rejeté')->where('clients.deleted_at', null)->count();
+
+        $creditTotal = Versement::sum('somme_verse');
+
+        $configurations = Configuration::first();
+
+        $user = Auth::user();
+        $pdf = Pdf::loadView('clients.statePdf', [
+            'configurations' => $configurations,
+            'creditTotal'=>$creditTotal, 
+            'user' => $user,
+            'clientsState' => $clientsState,
+            'clientAttente' => $clientAttente,
+            'clientAccepté' => $clientAccepté,
+            'clientRejeté' => $clientRejeté
+        ]);
+
+        return $pdf->download('rapports.pdf');
     }
 }

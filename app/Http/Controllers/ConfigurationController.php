@@ -4,17 +4,31 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Configuration;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
 class ConfigurationController extends Controller
-{/**
+{
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(){
+    public function index()
+    {
+        $clientAttente = DB::table('clients')->where('status', 'Attente')->where('clients.deleted_at', null)->count();
+        $clientAccepté = DB::table('clients')->where('status', 'Accepté')->where('clients.deleted_at', null)->count();
+        $clientRejeté = DB::table('clients')->where('status', 'Rejeté')->where('clients.deleted_at', null)->count();
         $config = Configuration::first();
-        return view('configs.index', ['config'=>$config]);
+        return view(
+            'configs.index',
+            [
+                'config' => $config,
+                'clientAttente' => $clientAttente,
+                'clientAccepté' => $clientAccepté,
+                'clientRejeté' => $clientRejeté
+            ]
+        );
     }
 
     /**
@@ -67,7 +81,8 @@ class ConfigurationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id){
+    public function update(Request $request, $id)
+    {
         $validator = Validator::make($request->all(), [
             'entreprise' => 'required',
             'telephone' => 'required',
@@ -75,7 +90,7 @@ class ConfigurationController extends Controller
             'email' => 'required|email',
         ]);
 
-        if ($validator->fails()){
+        if ($validator->fails()) {
             return response()->json($validator->errors(), 500);
         }
 
@@ -86,7 +101,7 @@ class ConfigurationController extends Controller
         $config->email = $request->email;
         $config->save();
 
-        return response()->json(['type'=>'success', 'message'=>'Configuration modifiée avec succès !']);
+        return response()->json(['type' => 'success', 'message' => 'Configuration modifiée avec succès !']);
     }
 
     /**

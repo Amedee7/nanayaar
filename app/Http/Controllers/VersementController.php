@@ -2,13 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Client;
-use Faker\Core\Version;
 use App\Models\Versement;
 use Illuminate\Http\Request;
-use App\Services\NumberService;
 use Illuminate\Support\Facades\DB;
 use App\Services\DateLimitpaiement;
 use Illuminate\Support\Facades\Auth;
@@ -30,10 +27,11 @@ class VersementController extends Controller
                 'reste_apaye',
                 'state',
                 'penalite',
+                'status_news_versement',
                 'versements.status',
                 'versements.commission_verse',
                 'versements.end',
-                'versements.limit',
+                'limit',
                 'clients.name',
                 'clients.lastname',
                 'clients.numb_cli',
@@ -43,10 +41,10 @@ class VersementController extends Controller
                 'users.avatar',
                 DB::raw("CONCAT(users.firstname,' ',users.lastname) as full_name"),
                 DB::raw("CONCAT(clients.name,' ',clients.lastname) as full_name_client"),
-                db::raw("date_format(versements.created_at,'%d/%m/%Y %H:%i') as created_at"),
+                db::raw("date_format(versements.created_at,'%d/%m/%Y à %H:%i') as created_at"),
 
-                db::raw("date_format(versements.updated_at,'%d/%m/%Y %H:%i') as updated_at")
-            )->where('versements.deleted_at', null);
+                db::raw("date_format(versements.updated_at,'%d/%m/%Y à %H:%i') as updated_at")
+            )->orderBy('updated_at', 'DESC')->where('versements.deleted_at', null);
         return datatables()->of($versements)
             ->addColumn('actions', function ($versements) {
                 return view('versements.actions', ['versements' => $versements]);
@@ -55,6 +53,10 @@ class VersementController extends Controller
 
     public function index(Request $request)
     {
+        $clientAttente = DB::table('clients')->where('status', 'Attente')->where('clients.deleted_at', null)->count();
+        $clientAccepté = DB::table('clients')->where('status', 'Accepté')->where('clients.deleted_at', null)->count();
+        $clientRejeté = DB::table('clients')->where('status', 'Rejeté')->where('clients.deleted_at', null)->count();
+        
         $versements = DB::table('versements')
             ->join('clients', 'clients.id', '=', 'versements.client_id')
             ->join('users', 'users.id', '=', 'versements.created_by')
@@ -86,10 +88,14 @@ class VersementController extends Controller
         return view(
             'versements.index',
             ['versements' => $versements],
-            ['clients' => $clients]
+            [
+                'clients' => $clients,
+                'clientAttente' => $clientAttente,
+                'clientAccepté' => $clientAccepté,
+                'clientRejeté' => $clientRejeté
+            ]
         );
     }
-
 
     public function create()
     {
@@ -134,7 +140,6 @@ class VersementController extends Controller
         return response()->json(['type' => 'success', 'message' => "Le Versement a été effectuer avec succès"]);
     }
 
-
     //DETAILS DU VERSEMENT
     public function showVersement($id)
     {
@@ -150,6 +155,7 @@ class VersementController extends Controller
                 'somme_verse',
                 'reste_apaye',
                 'state',
+                'versements.status_news_versement',
                 'versements.status',
                 'clients.name',
                 'clients.lastname',
@@ -162,6 +168,39 @@ class VersementController extends Controller
                 DB::raw("CONCAT(users.firstname,' ',users.lastname) as full_name_user"),
                 DB::raw("CONCAT(clients.name,' ',clients.lastname) as full_name_client"),
                 db::raw("date_format(versements.created_at,'%d/%m/%Y %H:%i') as created_at")
+            )->where('versements.id', $id)->first();
+        return view('versements.modals.show', [
+            'versement' => $versement
+        ]);
+    }
+
+    //DETAILS DU VERSEMENT
+    public function showVersementClient($id)
+    {
+
+        $versement = DB::table('versements')
+            ->join('clients', 'clients.id', '=', 'versements.client_id')
+            ->join('users', 'users.id', '=', 'versements.created_by')
+            ->select(
+                'versements.id',
+                'versements.identifier',
+                'versements.commentaire',
+                'versements.montant_octroye',
+                'somme_verse',
+                'reste_apaye',
+                'state',
+                'versements.status_news_versement',
+                'versements.status',
+                'clients.name',
+                'clients.lastname',
+                'clients.numb_cli as numero_client',
+                'clients.first_phone as numero_telephone1_client',
+                'clients.second_phone as numero_telephone2_client',
+
+                'users.avatar',
+                DB::raw("CONCAT(users.firstname,' ',users.lastname) as full_name_user"),
+                DB::raw("CONCAT(clients.name,' ',clients.lastname) as full_name_client"),
+                DB::raw("date_format(versements.created_at,'%d/%m/%Y %H:%i') as created_at")
             )->where('versements.id', $id)->first();
         return view('versements.modals.show', [
             'versement' => $versement
@@ -189,7 +228,7 @@ class VersementController extends Controller
         $versement->limit               = DateLimitpaiement::generateLimitdate();
         $versement->commission_verse    = $client->commission_averse;
 
-        $versement->status              = 'Non payé';
+        $versement->status              = 'Non remboursé';
         $versement->client_id           = $request->client;
         $versement->created_by          = Auth::user()->getAuthIdentifier();
         $versement->save();
@@ -215,6 +254,7 @@ class VersementController extends Controller
                 'reste_apaye',
                 'state',
                 'versements.status',
+                'status_news_versement',
                 'clients.name',
                 'clients.lastname',
                 'clients.numb_cli as numero_client',
@@ -237,6 +277,7 @@ class VersementController extends Controller
                 'somme_verse',
                 'reste_apaye',
                 'state',
+                'versements.status_news_versement',
                 'versements.status as status',
                 'clients.name',
                 'clients.lastname',
@@ -286,9 +327,9 @@ class VersementController extends Controller
         $versement->state = 'Terminé';
         $versement->commentaire = $request->commentaire;
         if ($versement->montant_octroye - $request->somme_verse == 0) {
-            $versement->status = 'Payé';
+            $versement->status = 'Remboursé';
         } elseif ($versement->montant_octroye - $request->somme_verse > 0) {
-            $versement->status = 'Paiement partiel';
+            $versement->status = 'Remboursement partiel';
         }
         $versement->save();
 
@@ -297,14 +338,14 @@ class VersementController extends Controller
             $client->amount_credit = ($client->amount_credit + $versement->reste_apaye);
         }
 
-            $client->status_versement = $versement->status;
+        $client->status_versement = $versement->status;
         $client->save();
 
         return response()->json(['type' => 'success', 'message' => 'Commande terminé avec succès !']);
     }
 
 
-    //AJOUT DE PRODUIT A LA COMMANDE
+    //
     public function modifyVersementModifierMontant($id)
     {
         $versements = Client::join('versements', 'versements.client_id', '=', 'clients.id')
@@ -319,7 +360,7 @@ class VersementController extends Controller
     }
 
 
-    //pop up de modification de montant octroue
+    //pop up de modification de montant octroye
     public function modifyVersementModifierMontantStore(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
@@ -332,12 +373,21 @@ class VersementController extends Controller
 
         $versement = Versement::find($id);
         $versement->montant_octroye = $request->montant_octroye;
+        $versement->status_news_versement               = 'Renouvelé';
         $versement->save();
 
+
+        // $client = Client::where('id', $versement->client_id)->first();
+        // if ($versement->montant_octroye) {
+        //     $client->amount_credit = ($client->amount_credit + 0);
+        // }
+        // $client->save();
+
+
+        //Modification montant octroye lors du renouvelement
         $client = Client::where('id', $versement->client_id)->first();
-        if ($versement->montant_octroye) {
-            $client->amount_credit = ($client->amount_credit + 0);
-        }
+        $client->montant_demande = $versement->montant_octroye;
+        $client->commission_averse  = $versement->montant_octroye * 14 / 100;
         $client->save();
 
         return response()->json(['type' => 'success', 'message' => 'Montant modifié avec succès !']);
@@ -376,7 +426,7 @@ class VersementController extends Controller
                 ->causedBy(Auth::user())
                 ->performedOn($versement)
                 ->withProperties([
-                    'Versement suprimée' => $log,
+                    'Versement suprimé' => $log,
                 ])
                 ->log("Regler somme restante'.");
             return response()->json(['type' => 'success', 'message' => 'Versement suprimée avec success !']);
@@ -385,12 +435,6 @@ class VersementController extends Controller
         }
     }
 
-    //GENERER UN MATRICULE POUR LES VERSEMENT
-    function generateRandomIdentifier($chars)
-    {
-        $data = '1234567890';
-        return substr(str_shuffle($data), 0, $chars);
-    }
 
     //REGLER LA SOMME RESTANTE
     public function versementAmountRule($id)
@@ -423,13 +467,14 @@ class VersementController extends Controller
 
             $versement->somme_verse            = $versement->somme_verse + $request->somme_verse;
             if ($versement->reste_apaye - $request->somme_verse == 0) {
-                $versement->status             = 'Payé';
+                $versement->status             = 'Remboursé';
             }
             $versement->reste_apaye            = $versement->reste_apaye - $request->somme_verse;
             $versement->save();
 
             $client                            = Client::where('id', $versement->client_id)->first();
             $client->amount_credit             = $client->amount_credit - $request->somme_verse;
+            $client->status_versement          = $versement->status;
             $client->save();
 
             activity("Audit")
@@ -444,5 +489,12 @@ class VersementController extends Controller
         } else {
             return response()->json(['type' => 'error', 'message' => 'Une erreur est survenue !']);
         }
+    }
+
+    //GENERER UN MATRICULE POUR LES VERSEMENT
+    function generateRandomIdentifier($chars)
+    {
+        $data = '1234567890';
+        return substr(str_shuffle($data), 0, $chars);
     }
 }

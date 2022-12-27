@@ -15,7 +15,7 @@ class DateLimitpaiement
         $current = Carbon::now();
 
         // // add 14 days to the current time
-        $limit_date = $current->addDays(2)->toDateTimeString();
+        $limit_date = $current->addDays(14)->toDateTimeString();
         return $limit_date;
 
         // $startDate = Carbon::now();

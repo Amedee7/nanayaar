@@ -22,10 +22,11 @@ return new class extends Migration
             $table->bigInteger('somme_verse')->default(0);
             $table->bigInteger('reste_apaye')->default(0);
             $table->enum('state', ['Terminé', 'En cours', 'Annulé']);
-            $table->enum('status', ['Non payé', 'Paiement partiel', 'Payé']);
+            $table->enum('status', ['Non remboursé', 'Remboursement partiel', 'Remboursé']);
+            $table->enum('status_news_versement', ['Non renouvelé','Renouvelé'])->default('Non renouvelé');
 
-            $table->date('end');
-            $table->date('limit');
+            $table->dateTime('end');
+            $table->dateTime('limit');
             $table->float('commission_verse');
             $table->boolean('rented')->default(false);
             $table->bigInteger('penalite')->default(0);

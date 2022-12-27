@@ -96,6 +96,9 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'administration'], function 
     Route::get('clients/export-clients', [ClientController::class, 'exportClients'])->middleware('permission:client-modifier')->name('clients.export-clients');
     Route::get('clients/export-clientspdf', [ClientController::class, 'exportClientsPdf'])->middleware('permission:client-modifier')->name('clients.export-clientspdf');
 
+    // Exporter un fichier Excel
+    Route::get('clients/report', [ClientController::class, 'generateReport'])->middleware('permission:client-creer')->name('clients.report');
+
 
     //VERSEMENTS ROUTE
     Route::get('/versements/datatable', [VersementController::class, 'datatables'])->middleware('permission:versement-lire')->name('versements.datatables');

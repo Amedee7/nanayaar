@@ -33,9 +33,9 @@
                                 <option value="">--Veuillez choisir--</option>
 
                                 @foreach ($clients as $item)
-                                    @if (($item->status == 'Accepté'))
+                                    @if (($item->status == 'Accepté') AND ($item->status_versement == 'Non remboursé'))
                                         <option value="{{ $item->id }}">{{ $item->name }} {{ $item->lastname }}
-                                            -N: {{ $item->numb_cli }}
+                                            - N: {{ $item->numb_cli }}
                                         </option>
                                     @endif
                                 @endforeach

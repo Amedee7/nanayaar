@@ -29,7 +29,7 @@ return new class extends Migration
             $table->float('commission_averse', 8, 2)->nullable();
             // $table->tinyInteger('status')->default(false);
             $table->enum('status', ['Accepté', 'Attente', 'Rejeté'])->default('Attente');
-            $table->enum('status_versement', ['Non payé', 'Paiement partiel', 'Payé'])->default('Non payé');
+            $table->enum('status_versement', ['Non remboursé', 'Remboursement partiel', 'Remboursé'])->default('Non remboursé');
 
             $table->enum('genre', ['Masculin', 'Feminin'])->default('Masculin')->nullable();
 

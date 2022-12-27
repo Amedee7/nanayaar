@@ -30,20 +30,16 @@ class HomeController extends Controller
     {
         $today = Carbon::today();
 
-        $limit = DateLimitpaiement::generateLimitdate(); // Notre Date par default
-        //Augmenter de 2 Jours
-        $maDate = strtotime($limit . "- 2 days");
-        $maDate = date("Y-m-d",$maDate);
-// dd($maDate);
+
         $clientAttente = DB::table('clients')->where('status', 'Attente')->where('clients.deleted_at', null)->count();
         $clientAccepté = DB::table('clients')->where('status', 'Accepté')->where('clients.deleted_at', null)->count();
         $clientRejeté = DB::table('clients')->where('status', 'Rejeté')->where('clients.deleted_at', null)->count();
-        $totalMontantOctroyé = Versement::where('state', 'Terminé')->sum('montant_octroye');
+        $totalMontantOctroyé = Versement::where('state', 'En cours')->sum('montant_octroye');
         $totalCommissions = Versement::where('state', 'En cours')->sum('commission_verse');
-        $clientEnRetard = Versement::where('state', 'Terminé')->whereDate('limit','<', $maDate)->count();
-dd($clientEnRetard);
 
-
+        $clientEnRetard = Versement::where('limit', '=', DB::raw("DATE_ADD(CURDATE(), INTERVAL 14 DAY)"))->count();
+        $versementEnd = Versement::where('somme_verse', '=!', 'montant_octroye')->where('limit', '<', $today)->count();
+        // dd($clientEnRetard);
 
         if ($request->has('trashed')) {
             $clients = Client::onlyTrashed()->orderBy('id', 'desc')->paginate('10');
@@ -55,12 +51,13 @@ dd($clientEnRetard);
             'home',
             ['clients' => $clients],
             [
-                'clientAttente' => $clientAttente,
-                'clientAccepté' => $clientAccepté,
-                'clientRejeté' => $clientRejeté,
-                'totalMontantOctroyé' => $totalMontantOctroyé,
-                'clientEnRetard' => $clientEnRetard,
-                'totalCommissions' => $totalCommissions
+                'clientAttente'         => $clientAttente,
+                'clientAccepté'         => $clientAccepté,
+                'clientRejeté'          => $clientRejeté,
+                'totalMontantOctroyé'   => $totalMontantOctroyé,
+                'clientEnRetard'        => $clientEnRetard,
+                'versementEnd'          => $versementEnd,
+                'totalCommissions'      => $totalCommissions
             ]
         );
     }

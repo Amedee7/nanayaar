@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Permission;
 use App\Models\Role;
+use App\Models\Permission;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use \Illuminate\Support\Facades\Validator;
 
@@ -22,7 +23,17 @@ class RoleController extends Controller
 
     public function index()
     {
-        return view('roles.index');
+        $clientAttente = DB::table('clients')->where('status', 'Attente')->where('clients.deleted_at', null)->count();
+        $clientAccepté = DB::table('clients')->where('status', 'Accepté')->where('clients.deleted_at', null)->count();
+        $clientRejeté = DB::table('clients')->where('status', 'Rejeté')->where('clients.deleted_at', null)->count();
+        return view('roles.index',
+        [
+            'clientAttente' => $clientAttente,
+            'clientAccepté' => $clientAccepté,
+            'clientRejeté' => $clientRejeté
+        ]
+    
+    );
     }
 
 

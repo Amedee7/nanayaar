@@ -211,7 +211,7 @@
                                             </a>
                                         </li>
                                         <li class="navi-item">
-                                            <a href="#" class="navi-link">
+                                            <a href="{{route('clients.report')}}" class="navi-link">
                                                 <span class="navi-icon"><i class="la la-file-pdf-o"></i></span>
                                                 <span class="navi-text">PDF</span>
                                             </a>
@@ -220,6 +220,7 @@
                                     <!--end::Navigation-->
                                 </div>
                                 <!--end::Dropdown Menu-->
+
                             </div>
                         @endpermission
 
@@ -243,7 +244,6 @@
                         </span>
                         <!--end::Lable--> --}}
                     </div>
-
                 </div>
                 <div class="card-body">
                     <div class="card-body ">
@@ -251,11 +251,11 @@
                             class="table table-bordered table-striped bgc-grey-l4 text-100 border-b-1">
                             <thead style="border-color:#2a80c8">
                                 <tr>
-                                    <th>Record ID</th>
+                                    <th>ID</th>
                                     <th>Nom & Prenom</th>
                                     <th>Telephones</th>
                                     <th>Mt. demandé</th>
-                                    <th>L'agent commercial</th>
+                                    <th>Agent com</th>
                                     <th>Status</th>
                                     <th>Actions</th>
                                 </tr>

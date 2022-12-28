@@ -345,7 +345,7 @@ class ClientController extends Controller
     {
         // $clients = Client::where('status', 'Attente')->get();
         $clients = DB::table('clients')
-        ->where('status', 'Attente')
+        ->where('status', 'Accepté')
         ->get();
 
         $clientsState = [];

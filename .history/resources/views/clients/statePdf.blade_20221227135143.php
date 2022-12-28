@@ -125,7 +125,7 @@
         table .no {
             color: #FFFFFF;
             font-size: 1.2em;
-            background: #01aaff;
+            background: #57B223;
         }
 
         table .desc {
@@ -223,7 +223,7 @@
 <main>
     <div id="details" class="clearfix">
         <div id="client">
-            <h2 class="name">Liste des clients inscrits aujourd'hui</h2>
+            <h2 class="name">Liste des clients inscri</h2>
             <div class="to">Par: {{$user->firstname}} {{$user->lastname}}</div>
             <div class="address">Date: {{\Illuminate\Support\Carbon::now()}}</div>
         </div>

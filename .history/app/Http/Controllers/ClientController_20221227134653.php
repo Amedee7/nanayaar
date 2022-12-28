@@ -345,7 +345,7 @@ class ClientController extends Controller
     {
         // $clients = Client::where('status', 'Attente')->get();
         $clients = DB::table('clients')
-        ->where('status', 'Attente')
+        ->where('status', 'Accepté')
         ->get();
 
         $clientsState = [];
@@ -354,12 +354,9 @@ class ClientController extends Controller
                 'id' => $item->id,
                 'numb_cli' => $item->numb_cli,
                 'name' => $item->name,
-                'lastname' => $item->lastname,
                 'first_phone' => $item->first_phone,
-                'second_phone' => $item->second_phone,
+                'first_phone' => $item->first_phone,
                 'status' => $item->status,
-                'commission_averse' => $item->commission_averse,
-                'montant_demande' => $item->montant_demande,
                 'amount_credit' => $item->amount_credit,
                 
             ];

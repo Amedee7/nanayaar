@@ -343,23 +343,14 @@ class ClientController extends Controller
 
     public function generateReport()
     {
-        // $clients = Client::where('status', 'Attente')->get();
-        $clients = DB::table('clients')
-        ->where('status', 'Attente')
-        ->get();
-
+        $clients = Client::where('status', 'Attente')->get();
         $clientsState = [];
         foreach ($clients as $item) {
             $tmp = [
                 'id' => $item->id,
                 'numb_cli' => $item->numb_cli,
                 'name' => $item->name,
-                'lastname' => $item->lastname,
                 'first_phone' => $item->first_phone,
-                'second_phone' => $item->second_phone,
-                'status' => $item->status,
-                'commission_averse' => $item->commission_averse,
-                'montant_demande' => $item->montant_demande,
                 'amount_credit' => $item->amount_credit,
                 
             ];

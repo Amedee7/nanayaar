@@ -343,30 +343,21 @@ class ClientController extends Controller
 
     public function generateReport()
     {
-        // $clients = Client::where('status', 'Attente')->get();
-        $clients = DB::table('clients')
-        ->where('status', 'Attente')
-        ->get();
-
+        $clients = Client::where('status', 'Attente')();
         $clientsState = [];
         foreach ($clients as $item) {
             $tmp = [
                 'id' => $item->id,
                 'numb_cli' => $item->numb_cli,
                 'name' => $item->name,
-                'lastname' => $item->lastname,
                 'first_phone' => $item->first_phone,
-                'second_phone' => $item->second_phone,
-                'status' => $item->status,
-                'commission_averse' => $item->commission_averse,
-                'montant_demande' => $item->montant_demande,
                 'amount_credit' => $item->amount_credit,
                 
             ];
 
             $clientsState[] = $tmp;
         }
-        // dd($clientsState);
+        dd($clientsState);
         $clientAttente = DB::table('clients')->where('status', 'Attente')->where('clients.deleted_at', null)->count();
         $clientAccepté = DB::table('clients')->where('status', 'Accepté')->where('clients.deleted_at', null)->count();
         $clientRejeté = DB::table('clients')->where('status', 'Rejeté')->where('clients.deleted_at', null)->count();

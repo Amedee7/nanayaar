@@ -125,7 +125,7 @@
         table .no {
             color: #FFFFFF;
             font-size: 1.2em;
-            background: #01aaff;
+            background: #57B223;
         }
 
         table .desc {
@@ -223,7 +223,7 @@
 <main>
     <div id="details" class="clearfix">
         <div id="client">
-            <h2 class="name">Liste des clients inscrits aujourd'hui</h2>
+            <h2 class="name">Rapport sur l'état des clients</h2>
             <div class="to">Par: {{$user->firstname}} {{$user->lastname}}</div>
             <div class="address">Date: {{\Illuminate\Support\Carbon::now()}}</div>
         </div>
@@ -242,7 +242,7 @@
         <tbody>
             @foreach($clientsState as $item)
                 <tr>
-                    <td class="desc">{{$item['numb_cli']}} <br> Tel: {{$item['first_phone']}} <br> {{$item['second_phone']}}</td>
+                    <td class="desc">{{$item['numb_cli']}}Tel: {{$item['first_phone']}} <br> {{$item['second_phone']}}</td>
                     <td class="desc"><h3>{{$item['name']}}{{$item['lastname']}}</h3></td>
                     <td class="unit">{{number_format($item['montant_demande'],0, '.',' ')}} Fcfa</td>
                     <td class="unit">{{number_format($item['commission_averse'],0, '.',' ')}} Fcfa</td>

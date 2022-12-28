@@ -125,7 +125,7 @@
         table .no {
             color: #FFFFFF;
             font-size: 1.2em;
-            background: #01aaff;
+            background: #57B223;
         }
 
         table .desc {
@@ -220,42 +220,7 @@
         <div><a href="{{$configurations->email}}">{{$configurations->email}}</a></div>
     </div>
 </header>
-<main>
-    <div id="details" class="clearfix">
-        <div id="client">
-            <h2 class="name">Liste des clients inscrits aujourd'hui</h2>
-            <div class="to">Par: {{$user->firstname}} {{$user->lastname}}</div>
-            <div class="address">Date: {{\Illuminate\Support\Carbon::now()}}</div>
-        </div>
-    </div>
-    <table border="0" cellspacing="0" cellpadding="0">
-        <thead>
-            <tr>
-                <th class="no">N CLIENT & NUMERO</th>
-                <th class="desc">NOM & PRENOM </th>
-                <th class="desc">Mt. DEMANDE</th>
-                <th class="desc">Cs VERSE</th>
-                <th class="desc">STATU</th>
-                {{-- <th class="unit" style="background: #d26565!important;">CREDIT TOTAL</th> --}}
-            </tr>
-        </thead>
-        <tbody>
-            @foreach($clientsState as $item)
-                <tr>
-                    <td class="desc">{{$item['numb_cli']}} <br> Tel: {{$item['first_phone']}} <br> {{$item['second_phone']}}</td>
-                    <td class="desc"><h3>{{$item['name']}}{{$item['lastname']}}</h3></td>
-                    <td class="unit">{{number_format($item['montant_demande'],0, '.',' ')}} Fcfa</td>
-                    <td class="unit">{{number_format($item['commission_averse'],0, '.',' ')}} Fcfa</td>
-                    <td class="desc"><h3>{{$item['status']}}</h3></td>
 
-                </tr>
-            @endforeach
-        </tbody>
-        <tfoot>
-        </tfoot>
-    </table>
-    <div id="thanks">Merci !</div>
-</main>
 <footer>
     {{$configurations->entreprise_name}} - NANA YAAR
 </footer>

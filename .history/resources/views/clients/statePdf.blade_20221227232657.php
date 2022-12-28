@@ -125,7 +125,7 @@
         table .no {
             color: #FFFFFF;
             font-size: 1.2em;
-            background: #01aaff;
+            background: #8923b2;
         }
 
         table .desc {

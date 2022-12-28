@@ -41,7 +41,7 @@
                 </div>
                 <!--end::Card header-->
 
-                {{-- <!--begin::les 3 card statistique-->
+                <!--begin::les 3 card statistique-->
                 <div class="row mt-5">
                     <div class="col-xl-4">
                         <!--begin::Stats Widget 13-->
@@ -154,7 +154,7 @@
                         <!--end::Stats Widget 14-->
                     </div>
                 </div>
-                <!--end::les 3 card statistique--> --}}
+                <!--end::les 3 card statistique-->
                 <div class="col-xl-12">
                     <div class="card card-xl-stretch mb-5 mt-3 mb-xl-8">
                         <div class="card-header border-0 pt-5 d-flex align-items-stretch justify-content-between">
@@ -214,8 +214,8 @@
     <script>
         $('#o2d-datatable').DataTable({
             "pageLength": 50,
-            // dom: 'Bfrtip',
-            // buttons: ['copy', 'csv', 'excel', 'pdf', 'print'],
+            dom: 'Bfrtip',
+            buttons: ['copy', 'csv', 'excel', 'pdf', 'print'],
             'paging': true,
             'lengthChange': true,
             'searching': true,

@@ -5,6 +5,7 @@
     <div class="d-flex flex-column-fluid">
         <div class="container col-md-12">
             <div class="card card-custom">
+
                 <!--begin::Card header-->
                 <div class="card card-custom card-stretch gutter-b">
                     <div class="d-flex align-items-center mb-9 bg-light-warning rounded p-5">
@@ -41,7 +42,7 @@
                 </div>
                 <!--end::Card header-->
 
-                {{-- <!--begin::les 3 card statistique-->
+                <!--begin::les 3 card statistique-->
                 <div class="row mt-5">
                     <div class="col-xl-4">
                         <!--begin::Stats Widget 13-->
@@ -49,9 +50,9 @@
                             <!--begin::Body-->
                             <div class="card-body">
                                 <span class="svg-icon svg-icon-white svg-icon-3x">
-                                    <!--begin::Svg Icon | path:C:\wamp64\www\keenthemes\themes\metronic\theme\html\demo1\dist/../src/media/svg/icons\Communication\Group.svg--><svg
-                                        xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-                                        width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                    <!--begin::Svg Icon--><svg xmlns="http://www.w3.org/2000/svg"
+                                        xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px"
+                                        viewBox="0 0 24 24" version="1.1">
                                         <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                                             <polygon points="0 0 24 0 24 24 0 24" />
                                             <path
@@ -70,7 +71,8 @@
                                 <div class="font-weight-bold text-inverse-primary font-size-sm">
                                     <div class="symbol symbol-circle me-5">
                                         <div class="symbol-label bg-transparent border border-secondary border-dashed">
-                                            <span class="font-weight-bold text-inverse-primary font-size-h2"></span>
+                                            <span
+                                                class="font-weight-bold text-inverse-primary font-size-h2">{{ $clientAttente }}</span>
                                             <span class="pulse-ring"></span>
                                         </div>
                                     </div>
@@ -80,16 +82,15 @@
                         </a>
                         <!--end::Stats Widget 13-->
                     </div>
-
                     <div class="col-xl-4">
                         <!--begin::Stats Widget 14-->
                         <a href="#" class="card card-custom bg-success bg-hover-state-success card-stretch gutter-b">
                             <!--begin::Body-->
                             <div class="card-body">
                                 <span class="svg-icon svg-icon-white svg-icon-3x">
-                                    <!--begin::Svg Icon | path:C:\wamp64\www\keenthemes\themes\metronic\theme\html\demo1\dist/../src/media/svg/icons\Communication\Group.svg--><svg
-                                        xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-                                        width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                    <!--begin::Svg Icon--><svg xmlns="http://www.w3.org/2000/svg"
+                                        xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px"
+                                        viewBox="0 0 24 24" version="1.1">
                                         <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                                             <polygon points="0 0 24 0 24 24 0 24" />
                                             <path
@@ -107,7 +108,8 @@
                                 <div class="font-weight-bold text-inverse-success font-size-sm">
                                     <div class="symbol symbol-circle me-5">
                                         <div class="symbol-label bg-transparent border border-secondary border-dashed">
-                                            <span class="font-weight-bold text-inverse-success font-size-h2"></span>
+                                            <span
+                                                class="font-weight-bold text-inverse-success font-size-h2">{{ $clientAccepté }}</span>
                                             <span class="pulse-ring"></span>
                                         </div>
                                     </div>
@@ -118,14 +120,14 @@
                         <!--end::Stats Widget 14-->
                     </div>
                     <div class="col-xl-4">
-                        <!--begin::Stats Widget 14-->
-                        <a href="#" class="card card-custom bg-success bg-hover-state-success card-stretch gutter-b">
+                        <!--begin::Stats Widget 15-->
+                        <a href="#" class="card card-custom bg-danger bg-hover-state-danger card-stretch gutter-b">
                             <!--begin::Body-->
                             <div class="card-body">
                                 <span class="svg-icon svg-icon-white svg-icon-3x">
-                                    <!--begin::Svg Icon | path:C:\wamp64\www\keenthemes\themes\metronic\theme\html\demo1\dist/../src/media/svg/icons\Communication\Group.svg--><svg
-                                        xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-                                        width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                    <!--begin::Svg Icon--><svg xmlns="http://www.w3.org/2000/svg"
+                                        xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px"
+                                        viewBox="0 0 24 24" version="1.1">
                                         <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                                             <polygon points="0 0 24 0 24 24 0 24" />
                                             <path
@@ -138,12 +140,13 @@
                                     </svg>
                                     <!--end::Svg Icon-->
                                 </span>
-                                <div class="text-inverse-success font-weight-bolder font-size-h5 mb-2 mt-5">
-                                    Clients <span class="badge badge-light fw-bolder my-2">Acceptés</span></div>
-                                <div class="font-weight-bold text-inverse-success font-size-sm">
+                                <div class="text-inverse-danger font-weight-bolder font-size-h5 mb-2 mt-5">
+                                    Clients <span class="badge badge-light fw-bolder my-2">Rejetés</span></div>
+                                <div class="font-weight-bold text-inverse-danger font-size-sm">
                                     <div class="symbol symbol-circle me-5">
                                         <div class="symbol-label bg-transparent border border-secondary border-dashed">
-                                            <span class="font-weight-bold text-inverse-success font-size-h2"></span>
+                                            <span
+                                                class="font-weight-bold text-inverse-danger font-size-h2">{{ $clientRejeté }}</span>
                                             <span class="pulse-ring"></span>
                                         </div>
                                     </div>
@@ -151,79 +154,137 @@
                             </div>
                             <!--end::Body-->
                         </a>
-                        <!--end::Stats Widget 14-->
+                        <!--end::Stats Widget 15-->
                     </div>
                 </div>
-                <!--end::les 3 card statistique--> --}}
-                <div class="col-xl-12">
-                    <div class="card card-xl-stretch mb-5 mt-3 mb-xl-8">
-                        <div class="card-header border-0 pt-5 d-flex align-items-stretch justify-content-between">
-                            <h3 class="card-title align-items-start flex-column">
-                                <span class="card-label fw-bolder fs-3 mb-1">Liste des Clients/Versement</span>
-                            </h3>
-                            @permission('versement-modifier')
-                                <div class="card-toolbar">
-                                    <a onclick="createRecord('{{ route('versements.create') }}')"
-                                        class="btn btn-sm btn-flex btn-primary fw-bolder">Octroyé un pret</a>
-                                </div>
-                            @endpermission
-                            @permission('versement-modifier')
-                                <div class="card-toolbar">
-                                    <a onclick="createRecord('{{ route('versements.renews') }}')"
-                                        class="btn btn-sm btn-flex btn-primary fw-bolder">Renouvelé un pret</a>
-                                </div>
-                            @endpermission
-                        </div>
-                        <div class="card-body py-3">
-                            <div class="table-responsive">
-                                <table class="table table-row-dashed table-row-gray-300 align-middle gs-0 gy-4"
-                                    id="o2d-datatable">
-                                    <thead>
-                                        <tr class="fw-bolder text-muted">
-                                            <th class="min-w-140px">ID</th>
-                                            <th class="min-w-140px">CLIENT</th>
-                                            <th class="min-w-140px">STATUS</th>
-                                            <th class="min-w-120px">Mt. DEBLOQUE</th>
-                                            <th class="min-w-120px">PENALITE</th>
-                                            <th class="min-w-120px">Cs. VERSE</th>
-                                            <th class="min-w-120px">Mt. VERSE</th>
-                                            <th class="min-w-120px">Sm. RESTANT</th>
-                                            <th class="min-w-100px text-end">ACTIONS</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
+                <!--end::les 3 card statistique-->
 
-                                    </tbody>
-                                </table>
+
+                <div class="card-header">
+                    <div class="card-title">
+                        <h3 class="card-label">
+                            <span class="flaticon-list icon-lg primary-color"></span>
+                            Liste des clients inscrits
+                        </h3>
+                    </div>
+                    <div class="card-toolbar">
+                        @permission('client-modifier')
+                            <!--begin::Dropdown-->
+                            <div class="dropdown dropdown-inline mr-2">
+                                <button type="button" class="btn btn-light-primary font-weight-bolder dropdown-toggle"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <span class="svg-icon svg-icon-md">
+                                        <!--begin::Svg Icon | path:assets/media/svg/icons/Design/PenAndRuller.svg--><svg
+                                            xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                            width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                <rect x="0" y="0" width="24" height="24" />
+                                                <path
+                                                    d="M3,16 L5,16 C5.55228475,16 6,15.5522847 6,15 C6,14.4477153 5.55228475,14 5,14 L3,14 L3,12 L5,12 C5.55228475,12 6,11.5522847 6,11 C6,10.4477153 5.55228475,10 5,10 L3,10 L3,8 L5,8 C5.55228475,8 6,7.55228475 6,7 C6,6.44771525 5.55228475,6 5,6 L3,6 L3,4 C3,3.44771525 3.44771525,3 4,3 L10,3 C10.5522847,3 11,3.44771525 11,4 L11,19 C11,19.5522847 10.5522847,20 10,20 L4,20 C3.44771525,20 3,19.5522847 3,19 L3,16 Z"
+                                                    fill="#000000" opacity="0.3" />
+                                                <path
+                                                    d="M16,3 L19,3 C20.1045695,3 21,3.8954305 21,5 L21,15.2485298 C21,15.7329761 20.8241635,16.200956 20.5051534,16.565539 L17.8762883,19.5699562 C17.6944473,19.7777745 17.378566,19.7988332 17.1707477,19.6169922 C17.1540423,19.602375 17.1383289,19.5866616 17.1237117,19.5699562 L14.4948466,16.565539 C14.1758365,16.200956 14,15.7329761 14,15.2485298 L14,5 C14,3.8954305 14.8954305,3 16,3 Z"
+                                                    fill="#000000" />
+                                            </g>
+                                        </svg>
+                                        <!--end::Svg Icon-->
+                                    </span> Export
+                                </button>
+                                <!--begin::Dropdown Menu-->
+                                <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right">
+                                    <!--begin::Navigation-->
+                                    <ul class="navi flex-column navi-hover py-2">
+                                        <li
+                                            class="navi-header font-weight-bolder text-uppercase font-size-sm text-primary pb-2">
+                                            Choisissez une option:
+                                        </li>
+                                        <li class="navi-item">
+                                            <a href="{{ route('clients.export-clients') }}" class="navi-link">
+                                                <span class="navi-icon"><i class="la la-file-excel-o"></i></span>
+                                                <span class="navi-text">Excel</span>
+                                            </a>
+                                        </li>
+                                        <li class="navi-item">
+                                            <a href="#" class="navi-link">
+                                                <span class="navi-icon"><i class="la la-file-text-o"></i></span>
+                                                <span class="navi-text">CSV</span>
+                                            </a>
+                                        </li>
+                                        <li class="navi-item">
+                                            <a href="{{route('clients.report')}}" class="navi-link">
+                                                <span class="navi-icon"><i class="la la-file-pdf-o"></i></span>
+                                                <span class="navi-text">PDF</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                    <!--end::Navigation-->
+                                </div>
+                                <!--end::Dropdown Menu-->
+
                             </div>
-                        </div>
+                        @endpermission
+
+                        <!--end::Dropdown-->
+                        @permission('client-creer')
+                            <h5 class="text-dark font-weight-bolder my-1 mr-5">
+                                <a href="{{ route('clients.create') }}" class="btn btn-primary">
+                                    <span class=" fas fa-user-plus">
+                                    </span> Ajouter un client</a>
+                            </h5>
+                        @endpermission
+                        {{-- <!--begin::Lable-->
+                        <span class="font-weight-bolder text-warning py-1 font-size-lg">
+                            @if (request()->has('trashed'))
+                                <a href="{{ route('clients.restoreAll') }}" class="btn btn-success"> <i
+                                        class="fas fa-undo"></i>Rejenerer les clients supprimés</a>
+                            @else
+                                <a href="{{ route('clients.index', ['trashed' => 'client']) }}"
+                                    class="btn btn-warning">Voir les clients supprimés</a>
+                            @endif
+                        </span>
+                        <!--end::Lable--> --}}
                     </div>
                 </div>
-
-                <div id="o2d-modal-container"></div>
-                <form>
-                    <input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">
-                </form>
+                <div class="card-body">
+                    <div class="card-body ">
+                        <table id="o2d-datatable"
+                            class="table table-bordered table-striped bgc-grey-l4 text-100 border-b-1">
+                            <thead style="border-color:#2a80c8">
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Nom & Prenom</th>
+                                    <th>Telephones</th>
+                                    <th>Mt. demandé</th>
+                                    <th>Agent com</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-@endsection
+    <div id="o2d-modal-container"></div>
+    <form>
+        <input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">
+    </form>
 
+@endsection
 @section('js')
-    <script src="{{ asset('js/script.js') }}"></script>
+    <script src="{{ asset('assets/script.js') }}"></script>
     <script>
         $('#o2d-datatable').DataTable({
             "pageLength": 50,
-            // dom: 'Bfrtip',
-            // buttons: ['copy', 'csv', 'excel', 'pdf', 'print'],
+            dom: 'Bfrtip',
+            butons: ['copy', 'csv', 'excel', 'pdf', 'print'],
             'paging': true,
             'lengthChange': true,
             'searching': true,
             'ordering': true,
             'info': true,
             'autoWidth': false,
-            'responsive': true,
-            'serverSide': false,
 
             language: {
                 processing: "Traitement en cours...",
@@ -246,19 +307,12 @@
                     sortDescending: ": activer pour trier la colonne par ordre décroissant"
                 }
             },
-            ajax: '{!! route('versements.datatables') !!}',
+            ajax: '{!! route('clients.datatables') !!}',
             columns: [{
-                    data: 'identifier',
-                    name: 'identifier',
-                    render: function render(data, type, full, meta) {
-                        return '<span class="label label-light-success label-inline fs-8 font-weight-bolder">' +
-                            data +
-                            '</span>' +
-                            '<span class="text-muted font-weight-bolder text-muted d-block fs-9">Par: ' +
-                            full
-                            .full_name + '</span>'
-                    }
+                    data: 'id',
+                    name: 'id'
                 },
+
                 {
                     data: 'name',
                     name: 'name',
@@ -266,28 +320,29 @@
                         var output;
                         output = '<div class="d-flex align-items-center">' +
                             '<div class="symbol symbol-50px me-5">' +
-                            '<span class="symbol-label bg-light-primary mr-2">' +
-                            '<span class="svg-icon svg-icon-3x svg-icon-primary">' +
-                                '<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">'+
-                            '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">' +
-                            '<path d="M12,11 C9.790861,11 8,9.209139 8,7 C8,4.790861 9.790861,3 12,3 C14.209139,3 16,4.790861 16,7 C16,9.209139 14.209139,11 12,11 Z" fill="#000000" fill-rule="nonzero" opacity="0.3" />' +
-                            '<path d="M3.00065168,20.1992055 C3.38825852,15.4265159 7.26191235,13 11.9833413,13 C16.7712164,13 20.7048837,15.2931929 20.9979143,20.2 C21.0095879,20.3954741 20.9979143,21 20.2466999,21 C16.541124,21 11.0347247,21 3.72750223,21 C3.47671215,21 2.97953825,20.45918 3.00065168,20.1992055 Z" fill="#000000" fill-rule="nonzero" />' +
+                            '<span class="symbol-label bg-light-primary">' +
+                            '<span class="svg-icon svg-icon-2x svg-icon-primary">' +
+                            '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">' +
+                            '<path opacity="0.3" d="M21.25 18.525L13.05 21.825C12.35 22.125 11.65 22.125 10.95 21.825L2.75 18.525C1.75 18.125 1.75 16.725 2.75 16.325L4.04999 15.825L10.25 18.325C10.85 18.525 11.45 18.625 12.05 18.625C12.65 18.625 13.25 18.525 13.85 18.325L20.05 15.825L21.35 16.325C22.35 16.725 22.35 18.125 21.25 18.525ZM13.05 16.425L21.25 13.125C22.25 12.725 22.25 11.325 21.25 10.925L13.05 7.62502C12.35 7.32502 11.65 7.32502 10.95 7.62502L2.75 10.925C1.75 11.325 1.75 12.725 2.75 13.125L10.95 16.425C11.65 16.725 12.45 16.725 13.05 16.425Z" fill="black"></path>' +
+                            '<path d="M11.05 11.025L2.84998 7.725C1.84998 7.325 1.84998 5.925 2.84998 5.525L11.05 2.225C11.75 1.925 12.45 1.925 13.15 2.225L21.35 5.525C22.35 5.925 22.35 7.325 21.35 7.725L13.05 11.025C12.45 11.325 11.65 11.325 11.05 11.025Z" fill="black"></path>' +
                             '</svg>' +
-                            '</g>'+
                             '</span>' +
                             '</span>' +
                             '</div>' +
                             '<div class="d-flex justify-content-start flex-column">' +
                             '<a href="#" class="text-dark font-weight-bolder text-hover-primary mb-1 fs-6">' +
-                            full.full_name_client +
+                            full.name +
+                            '</a>' +
+                            '<a href="#" class="text-dark font-weight-bolder text-hover-primary mb-1 fs-6">' +
+                            full.lastname +
                             '</a>' +
                             '<span class="text-muted font-weight-bolder text-muted d-block fs-7">' +
                             '<div class="min-w-125px pe-2">N Client: ' +
                             '<span class="fs-8 m-1">' + full.numb_cli +
                             '</span>' +
-                            '<div class="min-w-125px pe-2">Tel: ' +
+                            '<div class="min-w-125px pe-2">Date: ' +
                             '<span class="label label-light-primary label-inline fs-8 m-1">' + full
-                            .first_phone +
+                            .created_at +
                             '</span>' +
                             '</div>' +
                             '</span>' +
@@ -296,7 +351,49 @@
                         return output;
                     }
                 },
+                {
+                    data: 'first_phone',
+                    name: 'first_phone',
+                    render: function render(data, type, full, meta) {
+                        return '<span style="width: 250px;">' +
+                            '<div class="d-flex align-items-center">' +
+                            '<div class="ml-0">' +
+                            '<div class="text-dark-75 font-weight-bolder font-size-lg mb-0">Tel 1: ' +
+                            data +
+                            '</div>' +
+                            '<a class="text-muted font-weight-bold text-hover-primary">Tel 2: ' + full
+                            .second_phone + '</a>' +
+                            '</div>' +
+                            '</div>' +
+                            '</span>';
+                    }
+                },
+                {
+                    data: 'montant_demande',
+                    name: 'montant_demande',
+                    render: function render(data, type, full, meta) {
+                        return '<span class=" label label-light-success label-inline fw-bolder fs-6">' +
+                            data
+                            .toLocaleString('fr') + '</span>'
+                    }
+                },
+                {
+                    data: 'user.firstname',
+                    name: 'user.firstname',
+                    render: function render(data, type, full, meta) {
+                        return '<span style="width: 250px;">' +
+                            '<div class="ml-4">' +
+                            '<div class="text-dark-75 font-weight-bolder font-size-lg mb-0">' + full.user
+                            .firstname + '</div>' +
+                            '<a class="text-muted font-weight-bold text-hover-primary">' + full.user
+                            .lastname + '</a>' +
+                            '</div>' +
+                            '</div>' +
+                            '</span>';
+                    }
+                }
 
+                ,
                 {
                     data: 'status',
                     name: 'status',
@@ -305,25 +402,22 @@
                         var label;
                         var value = data;
                         switch (value) {
-                            case "Non remboursé":
+                            case 'Accepté':
+                                label = "label-light-success";
+                                break;
+                            case 'Rejeté':
                                 label = "label-light-danger";
                                 break;
-                            case "Remboursement partiel":
-                                label = "label-light-warning";
-                                break;
                             default:
-                                label = "label-light-success";
+                                label = "label-light-primary";
                         }
 
                         if (typeof value === 'undefined') {
                             return value;
                         }
-                        status = status + ' ' + '<span class="label fs-7 m-1 ' + label + ' label-inline">' +
-                            value +
-                            '</span>'+
-                            '<span class="text-muted font-weight-bolder label-inline text-muted d-block fs-9">Dt déblocage: ' +
-                            full
-                            .created_at + '</span>';
+                        status = status + ' ' + '<span class="label font-size-3 m-1 ' + label +
+                            ' label-inline">' + value +
+                            '</span>';
 
                         return status;
 
@@ -331,67 +425,12 @@
                 },
 
                 {
-                    data: 'montant_octroye',
-                    name: 'montant_octroye',
-                    render: function render(data, type, full, meta) {
-                        return '<span class=" label label-light-success label-inline font-weight-bolder fs-6">' +
-                            data.toLocaleString('fr') + 
-                            '</span>'+
-                            '<span class="label label-light-primary label-inline fs-8 m-1">' +
-                            full
-                            .status_news_versement + '</span>';
-                    }
+                    data: 'action',
+                    name: 'action',
+                    width: 100
                 },
-
-                {
-                    data: 'penalite',
-                    name: 'penalite',
-                    render: function render(data, type, full, meta) {
-                        return '<span class=" label label-light-success label-inline font-weight-bolder fs-6">' +
-                            data.toLocaleString('fr') + '</span>'
-                    }
-                },
-
-                {
-                    data: 'commission_verse',
-                    name: 'commission_verse',
-                    render: function render(data, type, full, meta) {
-                        return '<span class=" label label-light-success label-inline font-weight-bolder fs-6">' +
-                            data
-                            .toLocaleString('fr') + '</span>'
-                    }
-                },
-                {
-                    data: 'somme_verse',
-                    name: 'somme_verse',
-                    render: function render(data, type, full, meta) {
-                        return '<span class=" label label-light-warning label-inline font-weight-bolder fs-6">' +
-                            data
-                            .toLocaleString('fr') + '</span>' +
-                            '<span class="text-muted font-weight-bolder label-inline text-muted d-block fs-9">Date Op: ' +
-                            full
-                            .updated_at + '</span>'
-                    }
-                },
-
-                {
-                    data: 'reste_apaye',
-                    name: 'reste_apaye',
-                    render: function render(data, type, full, meta) {
-                        return '<span class=" label label-light-warning label-inline font-weight-bolder fs-6">' +
-                            data
-                            .toLocaleString('fr') + '</span>' +
-                            '<span class="text-muted font-weight-bolder label-inline text-muted d-block fs-9">Dt. Rbst: ' +
-                            full
-                            .limit + '</span>'
-                    }
-                },
-
-                {
-                    name: 'actions',
-                    data: 'actions'
-                }
             ],
+
         });
     </script>
 @endsection

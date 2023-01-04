@@ -171,7 +171,6 @@ return array(
     'Database\\Seeders\\ClientSeeder' => $baseDir . '/database/seeders/ClientSeeder.php',
     'Database\\Seeders\\ConfigurationSeeder' => $baseDir . '/database/seeders/ConfigurationSeeder.php',
     'Database\\Seeders\\DatabaseSeeder' => $baseDir . '/database/seeders/DatabaseSeeder.php',
-    'Database\\Seeders\\EventSeeder' => $baseDir . '/database/seeders/EventSeeder.php',
     'Database\\Seeders\\LaratrustSeeder' => $baseDir . '/database/seeders/LaratrustSeeder.php',
     'Database\\Seeders\\UserSeeder' => $baseDir . '/database/seeders/UserSeeder.php',
     'DeepCopy\\DeepCopy' => $vendorDir . '/myclabs/deep-copy/src/DeepCopy/DeepCopy.php',

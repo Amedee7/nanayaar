@@ -3,7 +3,7 @@
 
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Laravel 6 Search Report</title>
+    <title>Rapport</title>
     <style>
         @font-face {
             font-family: SourceSansPro;
@@ -24,7 +24,6 @@
         body {
             position: relative;
             width: 100%;
-            height: 29.7cm;
             padding-right: 20px;
             color: #555555;
             background: #FFFFFF;
@@ -93,7 +92,7 @@
         }
 
         table {
-            width: 100%;
+            width: 70%;
             border-collapse: collapse;
             border-spacing: 0;
             margin-bottom: 20px;
@@ -180,7 +179,7 @@
 
         #thanks {
             font-size: 2em;
-            margin-bottom: 50px;
+            margin-bottom: 25px;
         }
 
         #notices {
@@ -192,7 +191,7 @@
             font-size: 1.2em;
         }
 
-        footer {
+        .footer {
             color: #777777;
             width: 100%;
             height: 30px;
@@ -207,35 +206,71 @@
 </head>
 
 <body>
+    <header class="clearfix">
+        <div id="company">
+            <h2 class="name">{{ $configurations->entreprise_name }}</h2>
+            <div>{{ $configurations->adress }}</div>
+            <div>{{ $configurations->telephone }}</div>
+            <div><a href="{{ $configurations->email }}">{{ $configurations->email }}</a></div>
+        </div>
+    </header>
+
+
 
     <!--begin::Lable-->
-                        <span class="font-weight-bolder text-warning py-1 font-size-lg">
-                            @if (request()->has('exportPDF2'))
-                            Liste des clients en attente
-                            @else
-                            Liste des clients
-                            @endif
-                        </span>
-                        <!--end::Lable-->
+    <div id="details" class="clearfix">
+        <div id="client">
+            <div class="to" style="text-transform: uppercase;">
+                @if (request()->has('exportClientAttPDF'))
+                    <h2 class="name">Rapport des Clients en attente </h2>
+                @elseif (request()->has('exportClientRej'))
+                    <h2 class="name">Rapport des Clients Rejetés </h2>
+                @else
+                    <h2 class="name"> Rapport des Clients Acceptés</h2>
+                @endif
+            </div>
+            <br>
+            <div class="to" style="text-transform: uppercase;">Exec par: {{ $user->firstname }} {{ $user->lastname }}
+            </div>
+            <em class="address">Periode: de {{ date('d/m/Y', strtotime($startDate)) }} à
+                {{ date('d/m/Y', strtotime($endDate)) }}</em>
+            <br>
+            <em class="address">Date d'extraction :
+                {{ date('d/m/Y H:i:s', strtotime(Carbon\Carbon::now()->locale('fr_FR'))) }}</em>
 
-    <table class="table table-dark">
-        <tr>
-            <th>id</th>
-            <th>name</th>
-            <th>N Client</th>
-            <th>created_at</th>
-            <th>created_at</th>
+        </div>
+    </div>
+    <!--end::Lable-->
+
+    <table class="table">
+        <tr style="background-color: #d26565;">
+            <th>Id</th>
+            <th>NOM 
+               <br> & PRENOMS</th>
+            <th>N CLIENT <br> & TELs</th>
+            <th>Mt. DEMANDE</th>
+            <th>Cs. A VERSE</th>
+            <th>N CNIB</th>
+            <th>GENRE</th>
         </tr>
         @foreach ($PDFReport as $PDFReports)
             <tr>
                 <td>{{ $PDFReports->id }}</td>
-                <td>{{ $PDFReports->name }}</td>
-                <td>{{ $PDFReports->numb_cli }}</td>
-                <td>{{ $PDFReports->created_at }}</td>
-                <td>{{ $PDFReports->created_at }}</td>
+                <td>{{ $PDFReports['name'] }} {{ $PDFReports['lastname'] }}</td>
+                <td> N CLient: {{ $PDFReports['numb_cli'] }} <br> Tel1: {{ $PDFReports['first_phone'] }} <br> Tel2:
+                    {{ $PDFReports['second_phone'] }}</td>
+                <td>{{ number_format($PDFReports['montant_demande'], 0, '.', ' ') }} Fcfa</td>
+                <td>{{ number_format($PDFReports['commission_averse'], 0, '.', ' ') }} Fcfa</td>
+                <td>{{ $PDFReports->numb_cnib }}</td>
+                <td>{{ $PDFReports->genre }}</td>
             </tr>
         @endforeach
     </table>
+    <div id="thanks">Merci !</div>
+
+    <div class="footer">
+        {{ $configurations->entreprise_name }} - NANA YAAR
+    </div>
 </body>
 
 </html>

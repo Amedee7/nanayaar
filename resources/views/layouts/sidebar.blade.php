@@ -188,10 +188,10 @@
                 @permission('client-lire')
                     <li class="menu-item {{ Request::routeIs('clients.index') ? ' menu-item-open' : '' }}
                         {{ Request::routeIs('clients.create') ? ' menu-item-open' : '' }}                        
+                        {{ Request::routeIs('clients.ViewPages') ? ' menu-item-open' : '' }}                        
                         {{ Request::routeIs('clients.details') ? ' menu-item-open' : '' }} menu-item-submenu"
                         aria-haspopup="true" data-menu-toggle="hover">
-                        <a href="javascript:;"
-                            class="menu-link menu-toggle">
+                        <a href="javascript:;" class="menu-link menu-toggle">
                             <span class="svg-icon menu-icon">
                                 <!--begin::Svg Icon | path:C:\wamp64\www\keenthemes\themes\metronic\theme\html\demo1\dist/../src/media/svg/icons\Communication\Group.svg--><svg
                                     xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -230,6 +230,14 @@
                                                 class="menu-text">Gestion des incrits</span></a>
                                     </li>
                                 @endpermission
+                                @permission('client-creer')
+                                    <li class="menu-item {{ Request::routeIs('clients.ViewPages') ? ' menu-item-active' : '' }}"
+                                        aria-haspopup="true">
+                                        <a href="{{ route('clients.ViewPages') }}" class="menu-link "><i
+                                                class="menu-bullet menu-bullet-dot"><span></span></i><span
+                                                class="menu-text">Generateur de rapport</span></a>
+                                    </li>
+                                @endpermission
                             </ul>
                         </div>
                     </li>
@@ -240,6 +248,7 @@
                         {{ Request::routeIs('prets.create') ? ' menu-item-open' : '' }}
                         {{ Request::routeIs('versements.modify') ? 'menu-item-open' : '' }}
                         {{ Request::routeIs('versements.show') ? 'menu-item-open' : '' }}
+                        {{ Request::routeIs('versements.ViewVersementReport') ? 'menu-item-open' : '' }}
                         {{ Request::routeIs('versements.finish') ? 'menu-item-open' : '' }} menu-item-submenu"
                         aria-haspopup="true" data-menu-toggle="hover"><a href="javascript:;"
                             class="menu-link menu-toggle">
@@ -270,6 +279,14 @@
                                         <a href="{{ route('versements.index') }}" class="menu-link "><i
                                                 class="menu-bullet menu-bullet-dot"><span></span></i><span
                                                 class="menu-text">Gestion des prets</span></a>
+                                    </li>
+                                @endpermission
+                                @permission('versement-creer')
+                                    <li class="menu-item {{ Request::routeIs('versements.ViewVersementReport') ? ' menu-item-active' : '' }}"
+                                        aria-haspopup="true">
+                                        <a href="{{ route('versements.ViewVersementReport') }}" class="menu-link "><i
+                                                class="menu-bullet menu-bullet-dot"><span></span></i><span
+                                                class="menu-text">Generateur de rapport</span></a>
                                     </li>
                                 @endpermission
                             </ul>

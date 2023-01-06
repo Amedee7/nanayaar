@@ -52,7 +52,6 @@
             text-align: right;
         }
 
-
         #details {
             margin-bottom: 50px;
         }
@@ -193,7 +192,7 @@
         }
 
         footer {
-            color: #777777;
+            color: #00b7ff;
             width: 100%;
             height: 30px;
             position: absolute;

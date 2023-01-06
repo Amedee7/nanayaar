@@ -15,11 +15,11 @@ return new class extends Migration
     {
         Schema::create('configurations', function (Blueprint $table) {
             $table->id();
-            $table->string('entreprise_name')->default('entreprise');
-            $table->string('telephone')->default('00000000');
-            $table->string('adress')->default('adresse');
+            $table->string('entreprise_name')->nullable();
+            $table->string('telephone')->nullable();
+            $table->string('adress')->nullable();
             $table->string('logo')->default('logo.png');
-            $table->string('email')->default('email@email.com');
+            $table->string('email')->nullable();
             $table->string('login_page_background')->default('background.png');
             $table->timestamps();
         });

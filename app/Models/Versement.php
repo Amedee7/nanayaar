@@ -5,13 +5,14 @@ namespace App\Models;
 use Carbon\Carbon;
 use App\Models\Client;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Versement extends Model
 {
     use HasFactory;
-    public $guarded = [];
+    public $guarded = ['id'];
 
     protected  static  function  boot()
     {
@@ -21,6 +22,15 @@ class Versement extends Model
             $model->uuid = (string) Str::uuid();
         });
     }
+
+     // Fetch all versements
+   public static function getVersements(){
+
+    $records = DB::table('versements')->select('identifier','montant_octroye','somme_verse','reste_apaye')->orderBy('id', 'asc')->get()->toArray();
+
+    return $records;
+  }
+
 
     public function client()
     {

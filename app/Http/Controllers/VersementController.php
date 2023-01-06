@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Client;
 use App\Models\Versement;
 use Illuminate\Http\Request;
+use App\Models\Configuration;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\DB;
 use App\Services\DateLimitpaiement;
 use Illuminate\Support\Facades\Auth;
@@ -20,6 +23,7 @@ class VersementController extends Controller
             ->join('users', 'users.id', '=', 'versements.created_by')
             ->select(
                 'versements.id',
+                'versements.uuid',
                 'versements.identifier',
                 'versements.commentaire',
                 'versements.montant_octroye',
@@ -30,8 +34,8 @@ class VersementController extends Controller
                 'status_news_versement',
                 'versements.status',
                 'versements.commission_verse',
-                'versements.end',
-                'limit',
+                'versements.debut',
+                // 'fin',
                 'clients.name',
                 'clients.lastname',
                 'clients.numb_cli',
@@ -39,10 +43,11 @@ class VersementController extends Controller
                 'clients.montant_demande',
 
                 'users.avatar',
+                db::raw('DATEDIFF(fin, debut) as testa'),
                 DB::raw("CONCAT(users.firstname,' ',users.lastname) as full_name"),
                 DB::raw("CONCAT(clients.name,' ',clients.lastname) as full_name_client"),
                 db::raw("date_format(versements.created_at,'%d/%m/%Y à %H:%i') as created_at"),
-
+                DB::raw("DATE_FORMAT(versements.fin, '%d/%m/%Y') as date_limite"),
                 db::raw("date_format(versements.updated_at,'%d/%m/%Y à %H:%i') as updated_at")
             )->orderBy('updated_at', 'DESC')->where('versements.deleted_at', null);
         return datatables()->of($versements)
@@ -56,7 +61,10 @@ class VersementController extends Controller
         $clientAttente = DB::table('clients')->where('status', 'Attente')->where('clients.deleted_at', null)->count();
         $clientAccepté = DB::table('clients')->where('status', 'Accepté')->where('clients.deleted_at', null)->count();
         $clientRejeté = DB::table('clients')->where('status', 'Rejeté')->where('clients.deleted_at', null)->count();
-        
+        // $differenceInDays = DB::table('versements')->select(db::raw('DATEDIFF(DATE_FORMAT(debut),DATE_FORMAT(fin)) as dggggggg'))->get();
+        $differenceInDays = DB::table('versements')->select(db::raw('DATEDIFF(fin, debut) as testa'))->get();
+        // dd($differenceInDays);
+
         $versements = DB::table('versements')
             ->join('clients', 'clients.id', '=', 'versements.client_id')
             ->join('users', 'users.id', '=', 'versements.created_by')
@@ -75,6 +83,7 @@ class VersementController extends Controller
                 'clients.montant_demande',
 
                 'users.avatar',
+                db::raw('DATEDIFF(fin, debut) as testa'),
                 DB::raw("CONCAT(users.firstname,' ',users.lastname) as full_name"),
                 db::raw("date_format(versements.created_at,'%d/%m/%Y %H:%i') as created_at")
             )->where('versements.deleted_at', null);
@@ -92,9 +101,16 @@ class VersementController extends Controller
                 'clients' => $clients,
                 'clientAttente' => $clientAttente,
                 'clientAccepté' => $clientAccepté,
-                'clientRejeté' => $clientRejeté
+                'clientRejeté' => $clientRejeté,
+                'differenceInDays' => $differenceInDays
             ]
         );
+    }
+
+    //RECUPERATION D'UN CLIENT
+    public function detailVersement(Versement $versement)
+    {
+        return view('versements.pages.details', ['versement' => $versement]);
     }
 
     public function create()
@@ -224,8 +240,8 @@ class VersementController extends Controller
         $versement->state               = 'En cours';
         $versement->montant_octroye     = $client->montant_demande;
 
-        $versement->end                 = now()->toDateTimeString();
-        $versement->limit               = DateLimitpaiement::generateLimitdate();
+        $versement->debut                 = now()->toDateTimeString();
+        $versement->fin               = DateLimitpaiement::generateLimitdate();
         $versement->commission_verse    = $client->commission_averse;
 
         $versement->status              = 'Non remboursé';
@@ -496,5 +512,43 @@ class VersementController extends Controller
     {
         $data = '1234567890';
         return substr(str_shuffle($data), 0, $chars);
+    }
+
+
+    public function viewReportVersement(Request $req)
+    {
+        $method = $req->method();
+
+        if ($req->isMethod('post')) {
+
+            $startDate = $req->input('startDate');
+            $endDate = $req->input('endDate');
+
+            // export PDF des versements inscrits
+            if ($req->has('exportDebPDF')) {
+                // $PDFReportVersement = Versement::whereBetween('created_at', [$startDate, $endDate])->get();
+                $PDFReportVersement = Versement::whereDate('created_at', DB::raw('CURDATE()'))->where('state', 'En cours')->get();
+                // dd($PDFReportVersement);
+                $user = Auth::user();
+                $configurations = Configuration::first();
+
+                $pdf = PDF::loadView(
+                    'versements.PDF_report_Versement',
+                    [
+                        'PDFReportVersement' => $PDFReportVersement,
+                        'user' => $user,
+                        'configurations' => $configurations, 'startDate' => $startDate, 'endDate' => $endDate
+                    ]
+                )->setPaper('a4', 'portrait');
+                return $pdf->download('PDF-report-Versement.pdf');
+            }
+        } else {
+            $user = Auth::user();
+            $configurations = Configuration::first();
+
+            //select all
+            $ViewsPage = Versement::all();
+            return view('versements.importVersement', ['ViewsPage' => $ViewsPage], ['user' => $user,]);
+        }
     }
 }

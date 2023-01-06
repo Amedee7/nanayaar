@@ -123,11 +123,17 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'administration'], function 
     Route::get('/versements/{id}/terminer', [VersementController::class, 'closeVersementPage'])->middleware('permission:versement-modifier')->name('versements.termine');
     Route::patch('/versements/{id}/finish', [VersementController::class, 'closeVersementPageStore'])->middleware('permission:versement-modifier')->name('versements.finish');
     Route::get('/versements/{id}/show', [VersementController::class, 'showVersement'])->middleware('permission:versement-lire')->name('versements.show');
+    Route::get('/versements/{versement:uuid}/details', [VersementController::class, 'detailVersement'])->middleware('permission:versement-lire')->name('versements.details');
+
     Route::get('/versements/{id}/cancel', [VersementController::class, 'versementCancel'])->middleware('permission:versement-modifier')->name('versements.cancel');
     Route::get('/versements/{id}/rule', [VersementController::class, 'versementAmountRule'])->middleware('permission:versement-règlement')->middleware('permission:versement-modifier')->name('versements.rule');
     Route::patch('/versements/{id}/rule/store', [VersementController::class, 'versementAmountRuleStore'])->middleware('permission:versement-règlement')->name('versements.rule.store');
     Route::delete('/versements/{id}/delete', [VersementController::class, 'versementDelete'])->middleware('permission:versement-supprimer')->name('versements.delete');
     Route::get('/versements/{id}/modifier', [VersementController::class, 'modifyVersement'])->middleware('permission:versement-modifier')->name('versements.modify');
+
+     //View Page
+     Route::get('versements/ViewVersementReport', [VersementController::class, 'viewReportVersement'])->name('versements.ViewVersementReport');
+     Route::post('versements/ViewVersementReport', [VersementController::class, 'viewReportVersement'])->name('versements.ViewVersementReport');
 
 
     //LOGS ROUTES

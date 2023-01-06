@@ -60,7 +60,7 @@
                                             <!--begin::Form Wizard Step 1-->
                                             <div class="pb-5" data-wizard-type="step-content"
                                                 data-wizard-state="current">
-                                                <h3 class="mb-10 font-weight-bold text-dark">EXPORTATION</h3>
+                                                <h3 class="mb-10 font-weight-bold text-dark">SELECTIONNER UNE DATE POUR EXPORTATER</h3>
                                                 <div class="row">
                                                     <div class="col-xl-12">
                                                         <div class="form-group row">
@@ -69,7 +69,7 @@
                                                                     class="input-group input-group-lg input-group-solid">
                                                                     <input type="date"
                                                                         class="form-control form-control-lg form-control-solid"
-                                                                        name="from" id="from" />
+                                                                        name="startDate" id="startDate" />
                                                                     <div class="input-group-append"><span
                                                                             class="input-group-text">.DE</span>
                                                                     </div>
@@ -82,7 +82,7 @@
                                                                     class="input-group input-group-lg input-group-solid">
                                                                     <input type="date"
                                                                         class="form-control form-control-lg form-control-solid"
-                                                                        name="to" id="to" />
+                                                                        name="endDate" id="endDate" />
                                                                     <div class="input-group-append"><span
                                                                             class="input-group-text">.A</span>
                                                                     </div>
@@ -93,7 +93,6 @@
                                                 </div>
                                             </div>
                                             <!--end::Form Wizard Step 1-->
-
                                             <!--begin::Wizard Actions-->
                                             <div class="d-flex justify-content-between border-top pt-10">
                                                 <div class="mr-2">
@@ -139,17 +138,24 @@
                                                                         <button type="submit"
                                                                             class="btn btn-secondary btn-sm"
                                                                             name="exportPDF"><i
-                                                                                class="far fa-file-pdf"></i>Rapport du
-                                                                            jour</button>
+                                                                                class="far fa-file-pdf"></i>Tous les inscrits</button>
                                                                     </a>
                                                                 </li>
                                                                 <li class="navi-item">
                                                                     <a href="#" class="navi-link">
                                                                         <button type="submit"
                                                                             class="btn btn-secondary btn-sm"
-                                                                            name="exportPDF2"><i
+                                                                            name="exportClientAttPDF"><i
                                                                                 class="far fa-file-pdf"></i>Clients en
                                                                             attente</button>
+                                                                    </a>
+                                                                </li>
+                                                                <li class="navi-item">
+                                                                    <a href="#" class="navi-link">
+                                                                        <button type="submit"
+                                                                            class="btn btn-secondary btn-sm"
+                                                                            name="exportClientRej"><i
+                                                                                class="far fa-file-pdf"></i>Clients Rejetés</button>
                                                                     </a>
                                                                 </li>
                                                             </ul>

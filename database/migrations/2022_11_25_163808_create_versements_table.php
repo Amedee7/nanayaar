@@ -25,8 +25,8 @@ return new class extends Migration
             $table->enum('status', ['Non remboursé', 'Remboursement partiel', 'Remboursé']);
             $table->enum('status_news_versement', ['Non renouvelé','Renouvelé'])->default('Non renouvelé');
 
-            $table->dateTime('end');
-            $table->dateTime('limit');
+            $table->dateTime('debut');
+            $table->dateTime('fin');
             $table->float('commission_verse');
             $table->boolean('rented')->default(false);
             $table->bigInteger('penalite')->default(0);

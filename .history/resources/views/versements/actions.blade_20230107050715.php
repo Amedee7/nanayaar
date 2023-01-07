@@ -7,7 +7,7 @@
  --}}
 
     <div class="d-flex justify-content-end flex-shrink-0">
-        <a onclick="editRecord('{{ route('versements.show', $versements->id) }}')" title="Détails" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm mr-1">
+        <a href="{{ route('versements.show', $versements->id) }}" title="Détails" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm mr-1">
             <span class="svg-icon svg-icon-muted svg-icon-2">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                 <path d="M21.7 18.9L18.6 15.8C17.9 16.9 16.9 17.9 15.8 18.6L18.9 21.7C19.3 22.1 19.9 22.1 20.3 21.7L21.7 20.3C22.1 19.9 22.1 19.3 21.7 18.9Z" fill="black"/>

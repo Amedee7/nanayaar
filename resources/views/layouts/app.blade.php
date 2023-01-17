@@ -143,6 +143,7 @@
     <script src="{{ asset('js/pages/crud/datatables/advanced/footer-callback.js') }}"></script>
 
 
+
     <!-- JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.0/js/toastr.js"></script>
     @yield('js')

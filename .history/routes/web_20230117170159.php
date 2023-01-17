@@ -141,8 +141,8 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'administration'], function 
     Route::get('versements/ViewVersementReport', [VersementController::class, 'viewReportVersement'])->name('versements.ViewVersementReport');
     Route::post('versements/ViewVersementReport', [VersementController::class, 'viewReportVersement'])->name('versements.ViewVersementReport');
 
-    Route::get('versements/recordVersementP', [VersementController::class, 'recordVersementsp'])->name('versements.recordVersementP');
-    Route::get('versements/recordStatusP', [VersementController::class, 'recordStatusP'])->name('versements.recordstatusP');
+    Route::get('versements/recordVersement', [VersementController::class, 'recordVersements'])->name('versements.recordVersement');
+    Route::get('versements/recordStatus', [VersementController::class, 'recordStatus'])->name('versements.recordstatus');
     Route::get('statusP', [VersementController::class, 'getStatusP'])->name('statusP');
     Route::get('statusVersementP', [VersementController::class, 'getStatusVersementP'])->name('statusVersementP');
 

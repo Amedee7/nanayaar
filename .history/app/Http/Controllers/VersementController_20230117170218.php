@@ -679,7 +679,7 @@ class VersementController extends Controller
     }
 
     //get search by date
-    public function recordVersementsP(Request $request)
+    public function recordVersements(Request $request)
     {
         if ($request->ajax()) {
 
@@ -705,7 +705,7 @@ class VersementController extends Controller
         }
     }
 
-    public function recordStatusP(Request $request)
+    public function recordStatus(Request $request)
     {
         if ($request->ajax()) {
 

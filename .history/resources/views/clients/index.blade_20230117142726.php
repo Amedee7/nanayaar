@@ -274,11 +274,13 @@
     <script src="{{ asset('assets/script.js') }}"></script>
     <script>
         $('#o2d-datatable').DataTable({
-            'pageLength': 10,
+            pageLength: 5,
                         lengthMenu: [
                             [2, 5, 10, 15, -1],
                             [2, 5, 10, 15, 'All']
                         ],
+            // dom: 'Bfrtip',
+            // buttons: ['copy', 'csv', 'excel', 'pdf', 'print'],
             'paging': true,
             'lengthChange': true,
             'searching': true,

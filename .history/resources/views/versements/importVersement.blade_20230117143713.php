@@ -358,7 +358,7 @@
         // Fetch records
         function fetch_tab(start_date, end_date) {
             $.ajax({
-                url: "{{ route('versements.recordVersementP') }}",
+                url: "{{ route('versements.recordVersement') }}",
                 type: "GET",
                 data: {
                     start_date: start_date,
@@ -680,7 +680,7 @@
         // Fetch Status
         function fetch_sts() {
             $.ajax({
-                url: "{{ route('statusP') }}",
+                url: "{{ route('status') }}",
                 type: "GET",
                 dataType: "json",
                 success: function(data) {
@@ -699,7 +699,7 @@
         // Fetch status versement
         function fetch_vers() {
             $.ajax({
-                url: "{{ route('statusVersementP') }}",
+                url: "{{ route('statusVersement') }}",
                 type: "GET",
                 dataType: "json",
                 success: function(data) {
@@ -717,7 +717,7 @@
         // Fetch recordstatus
         function fetch_st(sts, vers) {
             $.ajax({
-                url: "{{ route('versements.recordstatusP') }}",
+                url: "{{ route('versements.recordstatus') }}",
                 type: "GET",
                 data: {
                     sts: sts,
@@ -993,13 +993,13 @@
                             {
                                 "data": "debut",
                                 "render": function(data, type, row, meta) {
-                                    return moment(row.debut).format('D MM YYYY');
+                                    return moment(row.debut).format('D MM YYYY', 'fr');
                                 }
                             },
                             {
                                 "data": "fin",
                                 "render": function(data, type, row, meta) {
-                                    return moment(row.fin).format('D MM YYYY');
+                                    return moment(row.fin).format('D MMM YYYY');
                                 }
                             }
                         ]

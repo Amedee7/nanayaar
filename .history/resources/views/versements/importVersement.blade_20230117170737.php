@@ -717,7 +717,7 @@
         // Fetch recordstatus
         function fetch_st(sts, vers) {
             $.ajax({
-                url: "{{ route('versements.recordstatusP') }}",
+                url: "{{ route('versements.recordstatus') }}",
                 type: "GET",
                 data: {
                     sts: sts,

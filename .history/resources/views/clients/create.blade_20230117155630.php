@@ -280,8 +280,8 @@
                                 '.',
                                 'success'
                             ).then(function() {
-                                // window.location.href = "/administration/clients/create";
-                                window.location.reload(true);
+                                // 
+                                window.location.href
                             });
                             break;
                             // $.confirm({

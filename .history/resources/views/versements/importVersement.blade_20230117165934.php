@@ -358,7 +358,7 @@
         // Fetch records
         function fetch_tab(start_date, end_date) {
             $.ajax({
-                url: "{{ route('versements.recordVersementP') }}",
+                url: "{{ route('versements.recordVersement') }}",
                 type: "GET",
                 data: {
                     start_date: start_date,
@@ -717,7 +717,7 @@
         // Fetch recordstatus
         function fetch_st(sts, vers) {
             $.ajax({
-                url: "{{ route('versements.recordstatusP') }}",
+                url: "{{ route('versements.recordstatus') }}",
                 type: "GET",
                 data: {
                     sts: sts,

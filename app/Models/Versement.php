@@ -5,7 +5,6 @@ namespace App\Models;
 use Carbon\Carbon;
 use App\Models\Client;
 use Illuminate\Support\Str;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 

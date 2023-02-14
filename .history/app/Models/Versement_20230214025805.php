@@ -5,7 +5,6 @@ namespace App\Models;
 use Carbon\Carbon;
 use App\Models\Client;
 use Illuminate\Support\Str;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -26,21 +25,21 @@ class Versement extends Model
 
     public function client()
     {
-        return $this->belongsToMany(Client::class, 'client_id', 'id');
+        return $this->belongsTo(Client::class);
     }
 
 
     public function calculatePenalty()
-{
-    $now = Carbon::now();
-    $deadline = Carbon::parse($this->limit);
-    $daysOverdue = $now->diffInDays($deadline);
-    $penaltyRate = config('app.penalty_rate');
+    {
+        $now = Carbon::now();
+        $deadline = Carbon::parse($this->limit);
+        $daysOverdue = $now->diffInDays($deadline);
+        $penaltyRate = config('app.penalty_rate');
 
-    if ($daysOverdue > 0) {
-        $this->penalite = $daysOverdue * $penaltyRate * $this->reste_apaye;
-    } else {
-        $this->penalite = 0;
+        if ($daysOverdue > 0) {
+            $this->penalite = $daysOverdue * $penaltyRate * $this->reste_apaye;
+        } else {
+            $this->penalite = 0;
+        }
     }
-}
 }

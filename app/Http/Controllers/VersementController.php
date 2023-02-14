@@ -12,55 +12,57 @@ use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\DB;
 use App\Services\DateLimitpaiement;
 use Illuminate\Support\Facades\Auth;
-use App\Services\CalculPenaliteService;
 use Illuminate\Support\Facades\Validator;
 
 class VersementController extends Controller
 {
     public function datatables()
     {
-        $versements = DB::table('versements')
-            ->join('clients', 'clients.id', '=', 'versements.client_id')
-            ->join('users', 'users.id', '=', 'versements.created_by')
-            ->select(
-                'versements.id',
-                'versements.uuid',
-                'versements.identifier',
-                'versements.commentaire',
-                'versements.montant_octroye',
-                'somme_verse',
-                'reste_apaye',
-                'state',
-                'penalite',
-                'status_news_versement',
-                'versements.status',
-                'versements.commission_verse',
-                'versements.debut',
-                // 'fin',
-                'clients.name',
-                'clients.lastname',
-                'clients.numb_cli',
-                'clients.first_phone',
-                'clients.montant_demande',
+        $versements = Versement::with('client')->latest();
 
-                'users.avatar',
-                DB::raw('DATEDIFF(fin, debut) as nombreJour'),
-                DB::raw('DATEDIFF(now(), fin) as joursApresDateLimite'),
+        // $versements = DB::table('versements')
+        //     ->join('clients', 'clients.id', '=', 'versements.client_id')
+        //     ->join('users', 'users.id', '=', 'versements.created_by')
+        //     ->select(
+        //         'versements.id',
+        //         'versements.uuid',
+        //         'versements.identifier',
+        //         'versements.commentaire',
+        //         'versements.montant_octroye',
+        //         'somme_verse',
+        //         'reste_apaye',
+        //         'state',
+        //         'penalite',
+        //         'status_news_versement',
+        //         'versements.status',
+        //         'versements.commission_verse',
+        //         'versements.debut',
+        //         // 'fin',
+        //         'clients.name',
+        //         'clients.lastname',
+        //         'clients.numb_cli',
+        //         'clients.first_phone',
+        //         'clients.montant_demande',
 
-                DB::raw('reste_apaye * 1/100 * DATEDIFF(now(), fin) as penality'),
+        //         'users.avatar',
+        //         DB::raw('DATEDIFF(fin, debut) as nombreJour'),
+        //         DB::raw('DATEDIFF(now(), fin) as joursApresDateLimite'),
 
-                DB::raw('reste_apaye > 0 as versements_ayant_reste_payer'), // Ne prend en compte que les versements ayant un reste à payer
-                DB::raw('fin < now() as versements_date_limite_paiement_depassee'), // Ne prend en compte que les versements ayant une date limite de paiement dépassée
+        //         DB::raw('reste_apaye * 1/100 * DATEDIFF(now(), fin) as penality'),
 
-                DB::raw("CONCAT(users.firstname,' ',users.lastname) as full_name"),
-                DB::raw("CONCAT(clients.name,' ',clients.lastname) as full_name_client"),
-                DB::raw("date_format(versements.created_at,'%d/%m/%Y à %H:%i') as created_at"),
-                DB::raw("DATE_FORMAT(versements.fin, '%d/%m/%Y') as date_limite"),
-                db::raw("date_format(versements.updated_at,'%d/%m/%Y à %H:%i') as updated_at")
-            )->orderBy('updated_at', 'DESC')
+        //         DB::raw('reste_apaye > 0 as versements_ayant_reste_payer'), // Ne prend en compte que les versements ayant un reste à payer
+        //         DB::raw('fin < now() as versements_date_limite_paiement_depassee'), // Ne prend en compte que les versements ayant une date limite de paiement dépassée
 
-            ->where('versements.deleted_at', null);
-        return datatables()->of($versements)
+        //         DB::raw("CONCAT(users.firstname,' ',users.lastname) as full_name"),
+        //         DB::raw("CONCAT(clients.name,' ',clients.lastname) as full_name_client"),
+        //         DB::raw("date_format(versements.created_at,'%d/%m/%Y à %H:%i') as created_at"),
+        //         DB::raw("DATE_FORMAT(versements.fin, '%d/%m/%Y') as date_limite"),
+        //         db::raw("date_format(versements.updated_at,'%d/%m/%Y à %H:%i') as updated_at")
+        //     )->orderBy('updated_at', 'DESC')
+
+        //     ->where('versements.deleted_at', null);
+        $configs = Configuration::select(['id', 'entreprise_name'])->find(1);
+        return datatables()->of($versements, $configs)
             ->addColumn('actions', function ($versements) {
                 return view('versements.actions', ['versements' => $versements]);
             })->toJson();
@@ -79,42 +81,21 @@ class VersementController extends Controller
             ->get();
         // dd($joursApresDateLimite);
 
-        $versements = DB::table('versements')
-            ->join('clients', 'clients.id', '=', 'versements.client_id')
-            ->join('users', 'users.id', '=', 'versements.created_by')
-            ->select(
-                'versements.id',
-                'versements.identifier',
-                'versements.commentaire',
-                'versements.montant_octroye',
-                'somme_verse',
-                'reste_apaye',
-                'state',
-                'penalite',
-                'versements.status',
-                'clients.name',
-                'clients.first_phone',
-                'clients.montant_demande',
 
-                'users.avatar',
-                db::raw('DATEDIFF(fin, debut) as nombreJour'),
-                db::raw('Carbon::now()->diffInDays(fin) as joursApresDateLimite '),
-                db::raw('Carbon::now() as today'),
-
-                DB::raw("CONCAT(users.firstname,' ',users.lastname) as full_name"),
-                db::raw("date_format(versements.created_at,'%d/%m/%Y %H:%i') as created_at")
-            )->where('versements.deleted_at', null);
+        $versements = Client::with('user', 'client')->latest();
 
         if ($request->has('trashed')) {
             $clients = Client::onlyTrashed()->paginate('10');
         } else {
             $clients = Client::with('user')->paginate('10');
         }
+        $configs = Configuration::select(['id', 'entreprise_name'])->find(1);
 
         return view(
             'versements.index',
-            ['versements' => $versements],
             [
+                'configs' => $configs,
+                'versements' => $versements,
                 'clients' => $clients,
                 'clientAttente' => $clientAttente,
                 'clientAccepté' => $clientAccepté,

@@ -25,13 +25,14 @@ class ClientController extends Controller
     {
 
         $clients = Client::with('user')->latest();
+        $configs = Configuration::select(['id', 'entreprise_name'])->find(1);
 
         if ($request->has('trashed')) {
             $clients = Client::with('user')->latest();
         } else {
             $clients = Client::with('user')->latest();
         }
-        return datatables()->of($clients)
+        return datatables()->of($clients, $configs)
             ->addColumn('action', function ($clients) {
                 return view('clients.actions', ['clients' => $clients]);
             })->toJson();
@@ -39,20 +40,28 @@ class ClientController extends Controller
 
     public function index(Request $request)
     {
-        $clientAttente = DB::table('clients')->where('status', 'Attente')->where('clients.deleted_at', null)->count();
-        $clientAccepté = DB::table('clients')->where('status', 'Accepté')->where('clients.deleted_at', null)->count();
-        $clientRejeté  = DB::table('clients')->where('status', 'Rejeté')->where('clients.deleted_at', null)->count();
+        $clients =  Client::whereIn('status', ['Accepté', 'Attente', 'Rejeté'])->get();
+        $clientAccepté = $clients->where('status', '=', 'Accepté')->where('deleted_at', null)->count();
+        $clientAttente = $clients->where('status', '=', 'Attente')->where('deleted_at', null)->count();
+        $clientRejeté = $clients->where('status', '=', 'Rejeté')->where('deleted_at', null)->count();
+
+        $configs = Configuration::select(['id', 'entreprise_name'])->find(1);
 
         if ($request->has('trashed')) {
             $clients = Client::with('user')->latest()->paginate('10');
+            $configs = Configuration::select(['id', 'entreprise_name'])->find(1);
         } else {
             $clients = Client::with('user')->latest()->paginate('10');
+            $configs = Configuration::select(['id', 'entreprise_name'])->find(1);
         }
+
+        $configs = Configuration::select(['id', 'entreprise_name'])->find(1);
 
         return view(
             'clients.index',
-            ['clients' => $clients],
             [
+                'clients' => $clients,
+                'configs' => $configs,
                 'clientAttente' => $clientAttente,
                 'clientAccepté' => $clientAccepté,
                 'clientRejeté'  => $clientRejeté
@@ -68,7 +77,9 @@ class ClientController extends Controller
     //RECUPERATION D'UN CLIENT
     public function detailClient(Client $client)
     {
-        return view('clients.pages.details', ['client' => $client]);
+        $configs = Configuration::select(['id', 'entreprise_name'])->find(1);
+
+        return view('clients.pages.details', ['client' => $client, 'configs' => $configs]);
     }
 
 
@@ -76,12 +87,19 @@ class ClientController extends Controller
     public function create()
     {
         $versements = Versement::all();
-        $clientAttente = DB::table('clients')->where('status', 'Attente')->where('clients.deleted_at', null)->count();
-        $clientAccepté = DB::table('clients')->where('status', 'Accepté')->where('clients.deleted_at', null)->count();
-        $clientRejeté = DB::table('clients')->where('status', 'Rejeté')->where('clients.deleted_at', null)->count();
+
+        $clients =  Client::whereIn('status', ['Accepté', 'Attente', 'Rejeté'])->get();
+        $clientAccepté = $clients->where('status', '=', 'Accepté')->where('deleted_at', null)->count();
+        $clientAttente = $clients->where('status', '=', 'Attente')->where('deleted_at', null)->count();
+        $clientRejeté = $clients->where('status', '=', 'Rejeté')->where('deleted_at', null)->count();
+
+        $configs = Configuration::select(['id', 'entreprise_name'])->find(1);
+
         return view('clients.create', [
+            'configs' => $configs,
             'lastClient' => NumberService::generateNumber(),
             'users' => User::all(),
+            'clients' => $clients,
             'clientAttente'         => $clientAttente,
             'clientAccepté'         => $clientAccepté,
             'clientRejeté'          => $clientRejeté,
@@ -157,9 +175,11 @@ class ClientController extends Controller
     public function edit($id)
     {
         $client = Client::find($id);
+        $configs = Configuration::select(['id', 'entreprise_name'])->find(1);
+
         if ($client) {
             $users = User::get();
-            return view('clients.modals.update', ['client' => $client], ['users' => $users]);
+            return view('clients.modals.update', ['client' => $client, 'users' => $users, 'configs' => $configs]);
         } else {
             return response()->json(['type' => 'error', 'message' => "Une erreur est survenue !"]);
         }
@@ -499,7 +519,9 @@ class ClientController extends Controller
                 $records = DB::table('clients')
                     ->whereBetween('created_at', [$startDate, $endDate])
                     ->get();
-                return view('clients.import', ['records' => $records, 'startDate' => $startDate, 'endDate' => $endDate]);
+                $configs = Configuration::select(['id', 'entreprise_name'])->find(1);
+
+                return view('clients.import', ['records' => $records, 'startDate' => $startDate, 'endDate' => $endDate, 'configs' => $configs]);
             }
 
             // export PDF des clients inscrits
@@ -509,14 +531,17 @@ class ClientController extends Controller
                 $PDFReport = Client::where('status', 'Accepté')->whereBetween('created_at', [$startDate, $endDate])->get();
                 // dd($PDFReport);
                 $user = Auth::user();
-                $configurations = Configuration::first();
+                $configs = Configuration::select(['id', 'entreprise_name'])->find(1);
+
 
                 $pdf = PDF::loadView(
                     'clients.PDF_report',
                     [
                         'PDFReport' => $PDFReport,
                         'user' => $user,
-                        'configurations' => $configurations, 'startDate' => $startDate, 'endDate' => $endDate
+                        'configs' => $configs,
+                        'startDate' => $startDate,
+                        'endDate' => $endDate
                     ]
                 )->setPaper('a4', 'portrait');
                 return $pdf->download('PDF-report.pdf');
@@ -528,12 +553,15 @@ class ClientController extends Controller
                 // dd($PDFReport);
 
                 $user = Auth::user();
-                $configurations = Configuration::first();
+                $configs = Configuration::select(['id', 'entreprise_name'])->find(1);
+
 
                 $pdf = PDF::loadView('clients.PDF_report', [
                     'PDFReport' => $PDFReport,
                     'user' => $user,
-                    'configurations' => $configurations, 'startDate' => $startDate, 'endDate' => $endDate
+                    'configs' => $configs,
+                    'startDate' => $startDate,
+                    'endDate' => $endDate
                 ])->setPaper('a4', 'portrait');
                 return $pdf->download('PDF-report.pdf');
             }
@@ -542,12 +570,14 @@ class ClientController extends Controller
             if ($req->has('exportClientAttPDF')) {
                 $PDFReport = Client::where('status', 'Attente')->whereBetween('created_at', [$startDate, $endDate])->get();
                 $user = Auth::user();
-                $configurations = Configuration::first();
+                $configs = Configuration::select(['id', 'entreprise_name'])->find(1);
 
                 $pdf = PDF::loadView('clients.PDF_report', [
                     'PDFReport' => $PDFReport,
                     'user' => $user,
-                    'configurations' => $configurations, 'startDate' => $startDate, 'endDate' => $endDate
+                    'configs' => $configs,
+                    'startDate' => $startDate,
+                    'endDate' => $endDate
                 ])->setPaper('a4', 'portrait');
                 return $pdf->download('PDF-report.pdf');
             }
@@ -557,22 +587,31 @@ class ClientController extends Controller
                 // $PDFReport = DB::select("SELECT * FROM clients BETWEEN '$from' AND '$to'");
                 $PDFReport = Client::where('status', 'Rejeté')->whereBetween('created_at', [$startDate, $endDate])->get();
                 $user = Auth::user();
-                $configurations = Configuration::first();
+                $configs = Configuration::select(['id', 'entreprise_name'])->find(1);
 
                 $pdf = PDF::loadView('clients.PDF_report', [
                     'PDFReport' => $PDFReport,
                     'user' => $user,
-                    'configurations' => $configurations, 'startDate' => $startDate, 'endDate' => $endDate
+                    'configs' => $configs,
+                    'startDate' => $startDate,
+                    'endDate' => $endDate
                 ])->setPaper('a4', 'portrait');
                 return $pdf->download('PDF-report.pdf');
             }
         } else {
             $user = Auth::user();
-            $configurations = Configuration::first();
+            $configs = Configuration::select(['id', 'entreprise_name'])->find(1);
 
             //select all
             $ViewsPage = Client::all();
-            return view('clients.import', ['ViewsPage' => $ViewsPage], ['user' => $user,]);
+            return view(
+                'clients.import',
+                [
+                    'ViewsPage' => $ViewsPage,
+                    'user' => $user,
+                    'configs' => $configs
+                ]
+            );
         }
     }
 

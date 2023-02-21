@@ -236,7 +236,7 @@
                                                 <!--end::Svg Icon-->
                                             </span><span class="pulse-ring"></span>
                                         </div>
-                                        <div class="text-inverse-white font-weight-bold">CLIENTS ACCEPTES
+                                        <div class="text-inverse-white font-weight-bold">CLIENTS 
                                         </div>
                                         <div class="text-inverse-white font-weight-bolder font-size-h1 text-primary">
                                             {{ $clientAccepté }} </div>

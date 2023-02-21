@@ -194,7 +194,7 @@
                                         <tr class="fw-bolder text-muted">
                                             <th class="min-w-140px">ID</th>
                                             <th class="min-w-140px">CLIENT</th>
-                                            <th class="min-w-140px">STATUT</th>
+                                            <th class="min-w-140px">STATUS</th>
                                             <th class="min-w-120px">Mt. DEBLOQUE</th>
                                             <th class="min-w-120px">PENALITE</th>
                                             <th class="min-w-120px">Cs. VERSE</th>

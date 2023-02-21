@@ -43,10 +43,9 @@
                     </div>
                 </div>
                 <!--end::Card header-->
-
+                
                 <!--begin::Page Layout-->
-                <div class="d-flex flex-row">
-                    <!--begin::Aside-->
+                <div class="d-flex flex-row"><!--begin::Aside-->
                     <div class="flex-column offcanvas-mobile w-300px w-xl-325px" id="kt_profile_aside">
                         <!--begin::Forms Widget 13-->
                         <div class="card card-custom gutter-b">
@@ -203,7 +202,7 @@
                                                     </div>
                                                 </div>
                                                 @if ($versement->state == 'En cours')
-                                                    <div class="card-footer d-flex justify-content-end p-6">
+                                                    <div class="card-footer p-6">
                                                         <button
                                                             onclick="editRecord('{{ route('versements.modify.add', $id) }}')"
                                                             class="btn btn-primary btn-sm"><i class="fas fa-undo"></i>
@@ -220,12 +219,14 @@
                         <!--end::Card-->
                     </div>
                     <!--end::Layout-->
+
+                    
                 </div>
                 <!--end::Page Layout-->
 
                 @if ($versement->state == 'En cours')
                     <div class="card">
-                        <div class="card-footer  py-6">
+                        <div class="card-footer d-flex justify-content-end py-6">
                             <a onclick="cancelRecordConfirm('{{ route('versements.cancel', $versement->id) }}')"
                                 class="btn btn-danger btn-active-light-danger mr-2">Annuler le versement</a>
                             <button id="senderX"

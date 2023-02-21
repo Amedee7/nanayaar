@@ -52,7 +52,7 @@
                                         @elseif($versement->status == 'Non payé')
                                             <span class="label label-light-danger label-inline">{{ $versement->status }}</span>
                                         @endif
-                                    </div>
+                                    </div>4
                                 </div>
                             </div>
                         </div>

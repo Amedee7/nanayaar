@@ -30,7 +30,7 @@
 
                         <!--begin::Title-->
                         <div class="d-flex flex-column flex-grow-1 mr-2">
-                            <h2 class="mb-1">Gestion des prets</h2>
+                            <h2 class="mb-1">Gestion des pr</h2>
                             <div class="text-muted fw-bolder">
                                 Effectuée par: <a href="#">{{ Auth::user()->lastname }}
                                     {{ Auth::user()->firstname }}</a>
@@ -194,7 +194,7 @@
                                         <tr class="fw-bolder text-muted">
                                             <th class="min-w-140px">ID</th>
                                             <th class="min-w-140px">CLIENT</th>
-                                            <th class="min-w-140px">STATUT</th>
+                                            <th class="min-w-140px">STATUS</th>
                                             <th class="min-w-120px">Mt. DEBLOQUE</th>
                                             <th class="min-w-120px">PENALITE</th>
                                             <th class="min-w-120px">Cs. VERSE</th>

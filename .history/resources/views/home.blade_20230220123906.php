@@ -6,6 +6,7 @@
         @if ($user->status == 'Actif')
             <!--begin::Row-->
             <div class="row">
+                div.col-lg
                 <div class="col-xl-4">
                     <!--begin::Mixed Widget 1-->
                     <div class="card card-custom bg-gray-100 card-stretch gutter-b">
@@ -236,7 +237,7 @@
                                                 <!--end::Svg Icon-->
                                             </span><span class="pulse-ring"></span>
                                         </div>
-                                        <div class="text-inverse-white font-weight-bold">CLIENTS ACCEPTES
+                                        <div class="text-inverse-white font-weight-bold">CLIENTS
                                         </div>
                                         <div class="text-inverse-white font-weight-bolder font-size-h1 text-primary">
                                             {{ $clientAccepté }} </div>
@@ -305,7 +306,7 @@
                             <div class="card card-custom card-stretch gutter-b">
                                 <!--begin::Header-->
                                 <div class="card-header border-0">
-                                    <h3 class="card-title font-weight-bolder text-dark">Clients en attente de validation
+                                    <h3 class="card-title font-weight-bolder text-dark">CLients en attente de validation
                                         <a href="{{ route('clients.index') }}" class="menu-link ">
                                         <span class="svg-icon svg-icon-3x svg-icon-primary d-block my-2">
                                             <!--begin::Svg Icon | path:C:\wamp64\www\keenthemes\themes\metronic\theme\html\demo1\dist/../src/media/svg/icons\Communication\Forward.svg--><svg

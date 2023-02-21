@@ -43,9 +43,90 @@
                     </div>
                 </div>
                 <!--end::Card header-->
-
                 <!--begin::Page Layout-->
                 <div class="d-flex flex-row">
+                    <!--begin::Layout-->
+                    <div class="flex-row-fluid ml-lg-8 mr-5">
+                        <!--begin::Card-->
+                        <div class="card card-custom card-stretch gutter-b">
+                            <div class="card-body">
+
+                                <!--begin::Engage Widget 15-->
+                                <div class="card card-custom mb-12">
+                                    <div class="card-body rounded p-0 d-flex " style="background-color:#DAF0FD;">
+                                        <div class="flex-lg-row-fluid mb-4 mb-lg-0 me-lg-7 me-xl-10">
+                                            <div class="card">
+                                                <div class="card-body p-6">
+                                                    <div
+                                                        class="d-flex flex-column align-items-start justify-content-between flex-xxl-row">
+                                                        <div
+                                                            class="d-flex align-items-center flex-equal fw-row me-4 order-2">
+                                                            <div class="fs-6 fw-bolder text-gray-700 text-nowrap">Date de
+                                                                création: {{ $versement->created_at }}</div>
+                                                        </div>
+                                                        <div
+                                                            class="d-flex align-items-center justify-content-end flex-equal order-3 fw-row">
+                                                            <div class="fs-1x fw-bolder text-gray-700 text-nowrap">
+                                                                <span
+                                                                    class="label font-size-h5 m-1 label-light-success label-inline">Operation
+                                                                    de versement</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="separator separator-dashed my-10"></div>
+                                                    <div class="mb-0">
+                                                        <table
+                                                            class="table align-middle table-row-dashed fs-6 fw-bold gy-4 dataTable no-footer table-responsive"
+                                                            id="kt_subscription_products_table">
+                                                            <thead>
+                                                                <tr
+                                                                    class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
+                                                                    <th class="min-w-250px sorting_disabled"
+                                                                        style="width: 200px;">N VERSEMENT</th>
+                                                                    <th class="min-w-100px sorting_disabled">SOMME</th>
+                                                                    <th class="min-w-150px sorting_disabled"
+                                                                        style="width: 150px;">M. TOTAL</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody class="text-gray-600">
+                                                                @foreach ($versements as $item)
+                                                                    <tr class="even">
+                                                                        <td><a
+                                                                                class="text-muted fw-bolder text-hover-primary mb-1 fs-6">{{ $item->identifiant_versement }}</a>
+                                                                        </td>
+                                                                        <td><span
+                                                                                class=" badge badge-light-success fw-bolder fs-6">{{ number_format($item->somme_verse, 0, '.', ' ') }}
+                                                                                Fcfa</span></td>
+                                                                        <td><span
+                                                                                class=" badge badge-light-success fw-bolder fs-6">{{ number_format($item->montant_octroye, 0, '.', ' ') }}
+                                                                                Fcfa</span></td>
+                                                                        <td class="text-end">
+                                                                        </td>
+                                                                    </tr>
+                                                                @endforeach
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                                @if ($versement->state == 'En cours')
+                                                    <div class="card-footer p-6">
+                                                        <button
+                                                            onclick="editRecord('{{ route('versements.modify.add', $id) }}')"
+                                                            class="btn btn-primary btn-sm"><i class="fas fa-undo"></i>
+                                                            Modifier la somme pour un renouvelement</button>
+                                                    </div>
+                                                @endif
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--end::Engage Widget 15-->
+                            </div>
+                        </div>
+                        <!--end::Card-->
+                    </div>
+                    <!--end::Layout-->
+
                     <!--begin::Aside-->
                     <div class="flex-column offcanvas-mobile w-300px w-xl-325px" id="kt_profile_aside">
                         <!--begin::Forms Widget 13-->
@@ -139,93 +220,12 @@
                         <!--end::List Widget 21-->
                     </div>
                     <!--end::Aside-->
-                    <!--begin::Layout-->
-                    <div class="flex-row-fluid ml-lg-8 mr-5">
-                        <!--begin::Card-->
-                        <div class="card card-custom card-stretch gutter-b">
-                            <div class="card-body">
-
-                                <!--begin::Engage Widget 15-->
-                                <div class="card card-custom mb-12">
-                                    <div class="card-body rounded p-0 d-flex " style="background-color:#DAF0FD;">
-                                        <div class="flex-lg-row-fluid mb-4 mb-lg-0 me-lg-7 me-xl-10">
-                                            <div class="card">
-                                                <div class="card-body p-6">
-                                                    <div
-                                                        class="d-flex flex-column align-items-start justify-content-between flex-xxl-row">
-                                                        <div
-                                                            class="d-flex align-items-center flex-equal fw-row me-4 order-2">
-                                                            <div class="fs-6 fw-bolder text-gray-700 text-nowrap">Date de
-                                                                création: {{ $versement->created_at }}</div>
-                                                        </div>
-                                                        <div
-                                                            class="d-flex align-items-center justify-content-end flex-equal order-3 fw-row">
-                                                            <div class="fs-1x fw-bolder text-gray-700 text-nowrap">
-                                                                <span
-                                                                    class="label font-size-h5 m-1 label-light-success label-inline">Operation
-                                                                    de versement</span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="separator separator-dashed my-10"></div>
-                                                    <div class="mb-0">
-                                                        <table
-                                                            class="table align-middle table-row-dashed fs-6 fw-bold gy-4 dataTable no-footer table-responsive"
-                                                            id="kt_subscription_products_table">
-                                                            <thead>
-                                                                <tr
-                                                                    class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
-                                                                    <th class="min-w-250px sorting_disabled"
-                                                                        style="width: 200px;">N VERSEMENT</th>
-                                                                    <th class="min-w-100px sorting_disabled">SOMME</th>
-                                                                    <th class="min-w-150px sorting_disabled"
-                                                                        style="width: 150px;">M. TOTAL</th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody class="text-gray-600">
-                                                                @foreach ($versements as $item)
-                                                                    <tr class="even">
-                                                                        <td><a
-                                                                                class="text-muted fw-bolder text-hover-primary mb-1 fs-6">{{ $item->identifiant_versement }}</a>
-                                                                        </td>
-                                                                        <td><span
-                                                                                class=" badge badge-light-success fw-bolder fs-6">{{ number_format($item->somme_verse, 0, '.', ' ') }}
-                                                                                Fcfa</span></td>
-                                                                        <td><span
-                                                                                class=" badge badge-light-success fw-bolder fs-6">{{ number_format($item->montant_octroye, 0, '.', ' ') }}
-                                                                                Fcfa</span></td>
-                                                                        <td class="text-end">
-                                                                        </td>
-                                                                    </tr>
-                                                                @endforeach
-                                                            </tbody>
-                                                        </table>
-                                                    </div>
-                                                </div>
-                                                @if ($versement->state == 'En cours')
-                                                    <div class="card-footer d-flex justify-content-end p-6">
-                                                        <button
-                                                            onclick="editRecord('{{ route('versements.modify.add', $id) }}')"
-                                                            class="btn btn-primary btn-sm"><i class="fas fa-undo"></i>
-                                                            Modifier la somme pour un renouvelement</button>
-                                                    </div>
-                                                @endif
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!--end::Engage Widget 15-->
-                            </div>
-                        </div>
-                        <!--end::Card-->
-                    </div>
-                    <!--end::Layout-->
                 </div>
                 <!--end::Page Layout-->
 
                 @if ($versement->state == 'En cours')
                     <div class="card">
-                        <div class="card-footer  py-6">
+                        <div class="card-footer d-flex justify-content-end py-6">
                             <a onclick="cancelRecordConfirm('{{ route('versements.cancel', $versement->id) }}')"
                                 class="btn btn-danger btn-active-light-danger mr-2">Annuler le versement</a>
                             <button id="senderX"

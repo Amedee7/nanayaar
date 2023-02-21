@@ -203,7 +203,7 @@
                                                     </div>
                                                 </div>
                                                 @if ($versement->state == 'En cours')
-                                                    <div class="card-footer d-flex justify-content-end p-6">
+                                                    <div class="card-footer d-flex justify-content p-6">
                                                         <button
                                                             onclick="editRecord('{{ route('versements.modify.add', $id) }}')"
                                                             class="btn btn-primary btn-sm"><i class="fas fa-undo"></i>

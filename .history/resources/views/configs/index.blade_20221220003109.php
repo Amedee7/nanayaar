@@ -1,1 +1,0 @@
-<i class="zmdi zmdi-plus-1"></i>

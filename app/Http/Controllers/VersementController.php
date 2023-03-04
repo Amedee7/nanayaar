@@ -108,6 +108,91 @@ class VersementController extends Controller
         );
     }
 
+    
+
+    public function historiqueClientRembourse(Request $request)
+    {
+        $clientAttente = DB::table('clients')->where('status', 'Attente')->where('clients.deleted_at', null)->count();
+        $clientAccepté = DB::table('clients')->where('status', 'Accepté')->where('clients.deleted_at', null)->count();
+        $clientRejeté = DB::table('clients')->where('status', 'Rejeté')->where('clients.deleted_at', null)->count();
+        $differenceInDays = DB::table('versements')->select(db::raw('DATEDIFF(fin, debut) as testa'))->get();
+        $joursApresDateLimite = DB::table('versements')
+            ->select(DB::raw('reste_apaye * 1/100 * DATEDIFF(now(), fin) as penalite'))
+            ->where('reste_apaye', '>', 0) // Ne prend en compte que les versements ayant un reste à payer
+            ->where('fin', '<', now()) // Ne prend en compte que les versements ayant une date limite de paiement dépassée
+            ->get();
+        // dd($joursApresDateLimite);
+
+
+        $versements = Client::with('user', 'client')->latest();
+        $user = Auth::user();
+
+        if ($request->has('trashed')) {
+            $clients = Client::onlyTrashed()->paginate('10');
+        } else {
+            $clients = Client::with('user')->paginate('10');
+        }
+        $configs = Configuration::select(['id', 'entreprise_name'])->find(1);
+
+        return view(
+            'versements.historiqueClientRembourse',
+            [
+                'user' => $user,
+                'configs' => $configs,
+                'versements' => $versements,
+                'clients' => $clients,
+                'clientAttente' => $clientAttente,
+                'clientAccepté' => $clientAccepté,
+                'clientRejeté' => $clientRejeté,
+                'differenceInDays' => $differenceInDays,
+                'joursApresDateLimite' => $joursApresDateLimite,
+            ]
+        );
+    }
+
+    public function ClientEnRetard(Request $request)
+    {
+        $today = Carbon::today();
+        $clientAttente = DB::table('clients')->where('status', 'Attente')->where('clients.deleted_at', null)->count();
+        $clientAccepté = DB::table('clients')->where('status', 'Accepté')->where('clients.deleted_at', null)->count();
+        $clientRejeté = DB::table('clients')->where('status', 'Rejeté')->where('clients.deleted_at', null)->count();
+        $differenceInDays = DB::table('versements')->select(db::raw('DATEDIFF(fin, debut) as testa'))->get();
+        $joursApresDateLimite = DB::table('versements')
+            ->select(DB::raw('reste_apaye * 1/100 * DATEDIFF(now(), fin) as penalite'))
+            ->where('reste_apaye', '>', 0) // Ne prend en compte que les versements ayant un reste à payer
+            ->where('fin', '<', $today) // Ne prend en compte que les versements ayant une date limite de paiement dépassée
+            ->get();
+        // dd($joursApresDateLimite);
+
+        // $versements = Versement::whereRaw('DATEDIFF(fin, debut) <= 2')->where('status', '!=', 'Remboursé')->latest();
+        // $versements = Versement::latest()->get();
+
+        $versements = Versement::with('client')->latest()->get();
+        $user = Auth::user();
+
+        if ($request->has('trashed')) {
+            $clients = Client::onlyTrashed()->paginate('10');
+        } else {
+            $clients = Client::with('user')->paginate('10');
+        }
+        $configs = Configuration::select(['id', 'entreprise_name'])->find(1);
+
+        return view(
+            'versements.clients-retard',
+            [
+                'user' => $user,
+                'configs' => $configs,
+                'versements' => $versements,
+                'clients' => $clients,
+                'clientAttente' => $clientAttente,
+                'clientAccepté' => $clientAccepté,
+                'clientRejeté' => $clientRejeté,
+                'differenceInDays' => $differenceInDays,
+                'joursApresDateLimite' => $joursApresDateLimite,
+            ]
+        );
+    }
+
     //RECUPERATION D'UN CLIENT
     public function detailVersement(Versement $versement)
     {
@@ -529,8 +614,7 @@ class VersementController extends Controller
         $versement = Versement::where('id', $id)->first();
         $client = Client::where('id', $request->client)->first();
 
-        $client->status_updated_or_not = 0; // renseille qu'un client est deja engagé
-        $client->save();
+        
         $log = [
             'Versement' => $versement
         ];

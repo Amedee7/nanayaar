@@ -45,11 +45,11 @@
                                 <div class="d-flex flex-column flex-root">
                                     <span class="font-weight-bolder mb-2">STATUT</span>
                                     <div class="fw-bolder fs-6 text-gray-800">
-                                        @if ($versement->status == 'Payé')
+                                        @if ($versement->status == 'Remboursé')
                                             <span class="label label-light-success label-inline">{{ $versement->status }}</span>
-                                        @elseif($versement->status == 'Paiement partiel')
+                                        @elseif($versement->status == 'Remboursement partiel')
                                             <span class="label label-light-warning label-inline">{{ $versement->status }}</span>
-                                        @elseif($versement->status == 'Non payé')
+                                        @elseif($versement->status == 'Non remboursé')
                                             <span class="label label-light-danger label-inline">{{ $versement->status }}</span>
                                         @endif
                                     </div>

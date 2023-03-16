@@ -6,6 +6,11 @@
             <div class="d-flex align-items-center flex-wrap mr-2">
                 <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Mon compte</h5>
             </div>
+            <div class="card-toolbar">
+                <h5 class="text-dark font-weight-bolder my-1 mr-5">
+                    <a href="{{ route('clients.index') }}"><span class="flaticon-up-arrow-1"></span> Mes Clients</a>
+                </h5>
+            </div>
             <div class="d-flex align-items-center flex-wrap">
                 <span class=" font-weight-bold mr-4"><a href="{{ url()->previous() }}">Page précedente</a></span>
             </div>

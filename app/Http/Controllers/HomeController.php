@@ -28,7 +28,7 @@ class HomeController extends Controller
      */
     public function index(Request $request)
     {
-        $today = Carbon::today();
+        $today = Carbon::now();
         $user = Auth::user();
 
         $clients =  Client::whereIn('status', ['Accepté', 'Attente', 'Rejeté'])->get();

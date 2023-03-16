@@ -2,14 +2,21 @@
 
 namespace App\Console;
 
-use Carbon\Carbon;
-use App\Services\NumberService;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
 class Kernel extends ConsoleKernel
 {
+    /**
+     **The Artisan commands provided by your application.
+     **
+     ** @var array
+     **/
+    protected $commands = [
+        //This is the line of code added, at the end, we the have class name of CalculatePenalty.php inside appconsolecommands
+        Commands\CalculatePenalty::class,
+    ];
+
     /**
      * Define the application's command schedule.
      *
@@ -18,15 +25,8 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->call(function () {
-            DB::table('versements')->insert([
-                'rended' => 1
-            ]);
-        })->when(function () {
-            $currentDate = Carbon::now();
-            $deadline = NumberService::generateNumber();
-            return $currentDate->gte($deadline);
-        });
+        // $schedule->command('calculate:penalty')->daily();
+        $schedule->command('CalculatePenalty:penalty')->everyMinute();
     }
 
     /**
@@ -36,7 +36,7 @@ class Kernel extends ConsoleKernel
      */
     protected function commands()
     {
-        $this->load(__DIR__.'/Commands');
+        $this->load(__DIR__ . '/Commands');
 
         require base_path('routes/console.php');
     }

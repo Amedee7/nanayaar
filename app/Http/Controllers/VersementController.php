@@ -164,13 +164,14 @@ class VersementController extends Controller
         // $versements = Versement::whereRaw('DATEDIFF(fin, debut) <= 2')->where('status', '!=', 'Remboursé')->latest();
         // $versements = Versement::latest()->get();
 
-        $versements = Versement::with('client')->latest()->paginate('50');
+        $versements = Versement::with('client')->orderBy('fin', 'DESC')->paginate('50');
+
         $user = Auth::user();
 
         if ($request->has('trashed')) {
-            $clients = Client::onlyTrashed()->paginate('10');
+            $clients = Client::onlyTrashed()->paginate('50');
         } else {
-            $clients = Client::with('user')->paginate('10');
+            $clients = Client::with('user')->paginate('50');
         }
         $configs = Configuration::select(['id', 'entreprise_name'])->find(1);
 
@@ -251,9 +252,9 @@ class VersementController extends Controller
         $user = Auth::user();
 
         if ($request->has('trashed')) {
-            $clients = Client::onlyTrashed()->paginate('10');
+            $clients = Client::onlyTrashed()->paginate('50');
         } else {
-            $clients = Client::with('user')->paginate('10');
+            $clients = Client::with('user')->paginate('50');
         }
         $configs = Configuration::select(['id', 'entreprise_name'])->find(1);
 
@@ -309,6 +310,7 @@ class VersementController extends Controller
         $versement->identifier          = '#V' . $this->generateRandomIdentifier(10);
         $versement->state               = 'En cours';
         $versement->montant_octroye     = $client->montant_demande;
+        $versement->reste_apaye         = $client->montant_demande;
 
         $versement->debut               = now()->toDateTimeString();
         $versement->fin                 = DateLimitpaiement::generateLimitdate();
@@ -453,6 +455,7 @@ class VersementController extends Controller
         $versement->identifier          = '#V' . $this->generateRandomIdentifier(10);
         $versement->state               = 'En cours';
         $versement->montant_octroye     = $client->montant_demande;
+        $versement->reste_apaye         = $client->montant_demande;
 
         $versement->debut               = now()->toDateTimeString();
         $versement->fin                 = DateLimitpaiement::generateLimitdate();

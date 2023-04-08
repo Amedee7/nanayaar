@@ -128,7 +128,9 @@ class ClientController extends Controller
                 'adresse'               => 'required',
                 'activite_client'       => 'required',
                 'raison_du_pret'        => 'required',
-                'numero_cnib'           => 'required',
+                // 'numero_cnib'           => 'required',
+                'numero_cnib' => 'required|unique:clients,message:Le numéro CNIB existe déjà',
+
             ]
         );
 
@@ -153,7 +155,7 @@ class ClientController extends Controller
         $client->genre              = $request->genre;
         $client->activity_client    = $request->activite_client;
         $client->date_delivered     = $request->date_delivre;
-        $client->date_expired       = $request->date_expire;
+        $client->date_expired      = $request->date_expire;
         $client->user_id            = $request->utilisateur;
 
         $client->created_by         = Auth::id();

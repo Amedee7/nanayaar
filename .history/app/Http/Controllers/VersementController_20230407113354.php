@@ -51,7 +51,7 @@ class VersementController extends Controller
                 DB::raw('fin < now() as versements_date_limite_paiement_depassee'), // Ne prend en compte que les versements ayant une date limite de paiement dépassée
 
                 DB::raw('reste_apaye * 1/100 * DATEDIFF(now(), fin) as penality'),
-                DB::raw('montant_octroye * 1/100 * DATEDIFF(now(), fin) as penality2'),
+                DB::raw('reste_apaye * 1/100 * DATEDIFF(now(), fin) as penality'),
 
                 DB::raw("CONCAT(users.firstname,' ',users.lastname) as full_name"),
                 DB::raw("CONCAT(clients.name,' ',clients.lastname) as full_name_client"),
@@ -758,10 +758,9 @@ class VersementController extends Controller
 
         ];
 
-        $versement->montant_octroye                     = $request->montant_octroye;
-        $versement->reste_apaye                         = $request->montant_octroye;
+        $versement->montant_octroye = $request->montant_octroye;
         $versement->status_news_versement               = 'Renouvelé';
-        $versement->commission_verse                    = $request->montant_octroye * 14 / 100;
+        $versement->commission_verse  = $request->montant_octroye * 14 / 100;
         $versement->save();
 
         //Modification montant octroye lors du renouvelement

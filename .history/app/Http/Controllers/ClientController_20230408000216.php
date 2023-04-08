@@ -128,6 +128,7 @@ class ClientController extends Controller
                 'adresse'               => 'required',
                 'activite_client'       => 'required',
                 'raison_du_pret'        => 'required',
+                // 'numero_cnib'           => 'required',
                 'numero_cnib'           => 'required',
             ]
         );

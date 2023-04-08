@@ -291,10 +291,10 @@
                                         '<span class="label label-light-primary label-inline fs-8 m-1"> Retard: ' +
                                         full.joursApresDateLimite + ' jrs</span>';
                                 } else {
-                                    return '<span class=" label label-light-success label-inline fs-6">' + full
-                                        .penality.toLocaleString('fr') + ' Fcfa</span>' +
-                                        '<span class="label label-light-primary label-inline fs-8 m-1"> Retard: ' +
-                                        full.joursApresDateLimite + ' jrs</span>';
+                                    return '<span class="label label-light-success label-inline fs-6">' + full
+                                        .penality+ ' Fcfa</span>';
+
+
                                 }
                             } else {
                                 return '<span class=" label label-light-success label-inline fs-6">' + data +

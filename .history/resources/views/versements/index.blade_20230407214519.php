@@ -279,26 +279,21 @@
                     },
 
                     {
-                        data: 'penalite',
-                        name: 'penalite',
+                        data: 'penality2',
+                        name: 'penality2',
                         render: function render(data, type, full, meta) {
+                            // if (full.versements_date_limite_paiement_depassee && full.versements_ayant_reste_payer) {
 
-                            if (full.versements_ayant_reste_payer && full
-                                .versements_date_limite_paiement_depassee) {
-                                if (full.reste_apaye == 0) {
-                                    return '<span class=" label label-light-success label-inline fs-6">' + full
-                                        .penality2.toLocaleString('fr') + ' Fcfa</span>' +
-                                        '<span class="label label-light-primary label-inline fs-8 m-1"> Retard: ' +
-                                        full.joursApresDateLimite + ' jrs</span>';
-                                } else {
-                                    return '<span class=" label label-light-success label-inline fs-6">' + full
-                                        .penality.toLocaleString('fr') + ' Fcfa</span>' +
-                                        '<span class="label label-light-primary label-inline fs-8 m-1"> Retard: ' +
-                                        full.joursApresDateLimite + ' jrs</span>';
-                                }
+                            if (full.reste_apaye == 0) {
+                                return '<span class="label label-light-success label-inline fs-6">' + full
+                                    .penality2.toLocaleString('fr') + ' Fcfa' + '</span>' +
+                                    '<span class="label label-light-primary label-inline fs-8 m-1"> Retard: ' +
+                                    full.joursApresDateLimite + ' jrs</span>';
                             } else {
-                                return '<span class=" label label-light-success label-inline fs-6">' + data +
-                                    '</span>';
+                                return '<span class="label label-light-success label-inline fs-6">' + full
+                                    .penality.toLocaleString('fr') + ' Fcfa' + '</span>' +
+                                    '<span class="label label-light-primary label-inline fs-8 m-1"> Retard: ' +
+                                    ful + ' jrs</span>';
                             }
                         }
                     },

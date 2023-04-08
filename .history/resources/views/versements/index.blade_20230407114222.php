@@ -152,81 +152,81 @@
                         data: 'id',
                         name: 'id',
                     },
-
+                    
                     {
                         data: 'name',
                         name: 'name',
                         render: function render(data, type, full, meta) {
                             var output;
                             //devient rouge si on est a 2 jrs de la date limite et il na pas encore remboursé 
-                            if (full.status != 'Remboursé' && full.nombreJour <= 2) {
+                            if (full.status != 'Remboursé' && full.nombreJour <= 2  ) {
                                 return '<div style="background-color:rgb(238, 45, 45);" class="p-2">' +
                                     '<div class="d-flex align-items-center">' +
-                                    '<div class="symbol symbol-50px me-5">' +
-                                    '<span class="symbol-label bg-light-primary mr-2">' +
-                                    '<span class="svg-icon svg-icon-3x svg-icon-primary">' +
-                                    '<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">' +
-                                    '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">' +
-                                    '<path d="M12,11 C9.790861,11 8,9.209139 8,7 C8,4.790861 9.790861,3 12,3 C14.209139,3 16,4.790861 16,7 C16,9.209139 14.209139,11 12,11 Z" fill="#000000" fill-rule="nonzero" opacity="0.3" />' +
-                                    '<path d="M3.00065168,20.1992055 C3.38825852,15.4265159 7.26191235,13 11.9833413,13 C16.7712164,13 20.7048837,15.2931929 20.9979143,20.2 C21.0095879,20.3954741 20.9979143,21 20.2466999,21 C16.541124,21 11.0347247,21 3.72750223,21 C3.47671215,21 2.97953825,20.45918 3.00065168,20.1992055 Z" fill="#000000" fill-rule="nonzero" />' +
-                                    '</svg>' +
-                                    '</g>' +
-                                    '</span>' +
-                                    '</span>' +
-                                    '</div>' +
-                                    '<div class="d-flex justify-content-start flex-column">' +
-                                    '<a href="#" class="text-dark font-weight-bolder text-hover-primary mb-1 fs-6">' +
-                                    full.full_name_client +
-                                    '</a>' +
-                                    '<span class="text-muted font-weight-bolder text-muted d-block fs-7">' +
-                                    '<div class="min-w-125px pe-2">N Client: ' +
-                                    '<span class="fs-8 m-1">' +
-                                    full.numb_cli +
-                                    '</span>' +
-                                    '</div>' +
-                                    '<div class="min-w-125px pe-2">Tel: ' +
-                                    '<span class="label label-light-primary label-inline fs-8 m-1">' + full
-                                    .first_phone +
-                                    '</span>' +
-                                    '</div>' +
-                                    '</span>' +
-                                    '</div>' +
-                                    '</div>' +
-                                    '</div>';
+                                        '<div class="symbol symbol-50px me-5">' +
+                                            '<span class="symbol-label bg-light-primary mr-2">' +
+                                                '<span class="svg-icon svg-icon-3x svg-icon-primary">' +
+                                                    '<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">' +
+                                                        '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">' +
+                                                            '<path d="M12,11 C9.790861,11 8,9.209139 8,7 C8,4.790861 9.790861,3 12,3 C14.209139,3 16,4.790861 16,7 C16,9.209139 14.209139,11 12,11 Z" fill="#000000" fill-rule="nonzero" opacity="0.3" />' +
+                                                            '<path d="M3.00065168,20.1992055 C3.38825852,15.4265159 7.26191235,13 11.9833413,13 C16.7712164,13 20.7048837,15.2931929 20.9979143,20.2 C21.0095879,20.3954741 20.9979143,21 20.2466999,21 C16.541124,21 11.0347247,21 3.72750223,21 C3.47671215,21 2.97953825,20.45918 3.00065168,20.1992055 Z" fill="#000000" fill-rule="nonzero" />' +
+                                                        '</svg>' +
+                                                    '</g>' +
+                                                '</span>' +
+                                            '</span>' +
+                                        '</div>' +
+                                        '<div class="d-flex justify-content-start flex-column">' +
+                                            '<a href="#" class="text-dark font-weight-bolder text-hover-primary mb-1 fs-6">' +
+                                                full.full_name_client +
+                                            '</a>' +
+                                            '<span class="text-muted font-weight-bolder text-muted d-block fs-7">' +
+                                                '<div class="min-w-125px pe-2">N Client: ' +
+                                                    '<span class="fs-8 m-1">' 
+                                                        + full.numb_cli +
+                                                    '</span>' +
+                                                '</div>' +
+                                                '<div class="min-w-125px pe-2">Tel: ' +
+                                                    '<span class="label label-light-primary label-inline fs-8 m-1">' + full
+                                                    .first_phone +
+                                                    '</span>' +
+                                                '</div>' +
+                                            '</span>' +
+                                        '</div>' +
+                                    '</div>'+
+                                '</div>';
                             } else {
                                 return '<div' +
                                     '<div class="d-flex align-items-center">' +
-                                    '<div class="symbol symbol-50px me-5">' +
-                                    '<span class="symbol-label bg-light-primary mr-2">' +
-                                    '<span class="svg-icon svg-icon-3x svg-icon-primary">' +
-                                    '<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">' +
-                                    '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">' +
-                                    '<path d="M12,11 C9.790861,11 8,9.209139 8,7 C8,4.790861 9.790861,3 12,3 C14.209139,3 16,4.790861 16,7 C16,9.209139 14.209139,11 12,11 Z" fill="#000000" fill-rule="nonzero" opacity="0.3" />' +
-                                    '<path d="M3.00065168,20.1992055 C3.38825852,15.4265159 7.26191235,13 11.9833413,13 C16.7712164,13 20.7048837,15.2931929 20.9979143,20.2 C21.0095879,20.3954741 20.9979143,21 20.2466999,21 C16.541124,21 11.0347247,21 3.72750223,21 C3.47671215,21 2.97953825,20.45918 3.00065168,20.1992055 Z" fill="#000000" fill-rule="nonzero" />' +
-                                    '</svg>' +
-                                    '</g>' +
-                                    '</span>' +
-                                    '</span>' +
-                                    '</div>' +
-                                    '<div class="d-flex justify-content-start flex-column">' +
-                                    '<a href="#" class="text-dark font-weight-bolder text-hover-primary mb-1 fs-6">' +
-                                    full.full_name_client +
-                                    '</a>' +
-                                    '<span class="text-muted font-weight-bolder text-muted d-block fs-7">' +
-                                    '<div class="min-w-125px pe-2">N Client: ' +
-                                    '<span class="fs-8 m-1">' +
-                                    full.numb_cli +
-                                    '</span>' +
-                                    '</div>' +
-                                    '<div class="min-w-125px pe-2">Tel: ' +
-                                    '<span class="label label-light-primary label-inline fs-8 m-1">' + full
-                                    .first_phone +
-                                    '</span>' +
-                                    '</div>' +
-                                    '</span>' +
-                                    '</div>' +
-                                    '</div>' +
-                                    '</div>';
+                                        '<div class="symbol symbol-50px me-5">' +
+                                            '<span class="symbol-label bg-light-primary mr-2">' +
+                                                '<span class="svg-icon svg-icon-3x svg-icon-primary">' +
+                                                    '<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">' +
+                                                        '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">' +
+                                                            '<path d="M12,11 C9.790861,11 8,9.209139 8,7 C8,4.790861 9.790861,3 12,3 C14.209139,3 16,4.790861 16,7 C16,9.209139 14.209139,11 12,11 Z" fill="#000000" fill-rule="nonzero" opacity="0.3" />' +
+                                                            '<path d="M3.00065168,20.1992055 C3.38825852,15.4265159 7.26191235,13 11.9833413,13 C16.7712164,13 20.7048837,15.2931929 20.9979143,20.2 C21.0095879,20.3954741 20.9979143,21 20.2466999,21 C16.541124,21 11.0347247,21 3.72750223,21 C3.47671215,21 2.97953825,20.45918 3.00065168,20.1992055 Z" fill="#000000" fill-rule="nonzero" />' +
+                                                        '</svg>' +
+                                                    '</g>' +
+                                                '</span>' +
+                                            '</span>' +
+                                        '</div>' +
+                                        '<div class="d-flex justify-content-start flex-column">' +
+                                            '<a href="#" class="text-dark font-weight-bolder text-hover-primary mb-1 fs-6">' +
+                                                full.full_name_client +
+                                            '</a>' +
+                                            '<span class="text-muted font-weight-bolder text-muted d-block fs-7">' +
+                                                '<div class="min-w-125px pe-2">N Client: ' +
+                                                    '<span class="fs-8 m-1">' 
+                                                        + full.numb_cli +
+                                                    '</span>' +
+                                                '</div>' +
+                                                '<div class="min-w-125px pe-2">Tel: ' +
+                                                    '<span class="label label-light-primary label-inline fs-8 m-1">' + full
+                                                    .first_phone +
+                                                    '</span>' +
+                                                '</div>' +
+                                            '</span>' +
+                                        '</div>' +
+                                    '</div>'+
+                                '</div>';
                             }
                         }
                     },
@@ -279,27 +279,22 @@
                     },
 
                     {
-                        data: 'penalite',
-                        name: 'penalite',
+                        data: 'penality2',
+                        name: 'penality2',
                         render: function render(data, type, full, meta) {
-
-                            if (full.versements_ayant_reste_payer && full
-                                .versements_date_limite_paiement_depassee) {
-                                if (full.reste_apaye == 0) {
-                                    return '<span class=" label label-light-success label-inline fs-6">' + full
-                                        .penality2.toLocaleString('fr') + ' Fcfa</span>' +
-                                        '<span class="label label-light-primary label-inline fs-8 m-1"> Retard: ' +
-                                        full.joursApresDateLimite + ' jrs</span>';
-                                } else {
-                                    return '<span class=" label label-light-success label-inline fs-6">' + full
-                                        .penality.toLocaleString('fr') + ' Fcfa</span>' +
-                                        '<span class="label label-light-primary label-inline fs-8 m-1"> Retard: ' +
-                                        full.joursApresDateLimite + ' jrs</span>';
-                                }
+                            if (meta
+                            if (full.versements_date_limite_paiement_depassee && full.versements_ayant_reste_payer) {
+                                return '<span class=" label label-light-success label-inline fs-6">' + full
+                                    .penality2.toLocaleString('fr') + ' Fcfa' + '</span>'+
+                                    '<span class="label label-light-primary label-inline fs-8 m-1"> Retard: ' +
+                                full.joursApresDateLimite + ' jrs</span>';
                             } else {
-                                return '<span class=" label label-light-success label-inline fs-6">' + data +
-                                    '</span>';
+                                return '<span class=" label label-light-success label-inline fs-6">' +
+                                    data +
+                                    '</span>'
                             }
+
+
                         }
                     },
 

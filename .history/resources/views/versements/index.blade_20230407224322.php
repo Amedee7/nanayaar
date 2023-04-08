@@ -278,29 +278,80 @@
                         }
                     },
 
+                    // {
+                    //     data: 'penality2',
+                    //     name: 'penality2',
+                    //     render: function render(data, type, full, meta) {
+                    //         // if (full.versements_date_limite_paiement_depassee && full.versements_ayant_reste_payer) {
+
+                    //         if (full.reste_apaye == 0) {
+                    //             return '<span class=" label label-light-success label-inline fs-6">' + full
+                    //                 .penality2.toLocaleString('fr') + ' Fcfa' + '</span>' +
+                    //                 '<span class="label label-light-primary label-inline fs-8 m-1"> Retard: ' +
+                    //                 full.joursApresDateLimite + ' jrs</span>';
+                    //         } else {
+                    //             return '<span class=" label label-light-success label-inline fs-6">' + full
+                    //                 .penality.toLocaleString('fr') + ' Fcfa' + '</span>' +
+                    //                 '<span class="label label-light-primary label-inline fs-8 m-1"> Retard: ' +
+                    //                 full.joursApresDateLimite + ' jrs</span>';
+                    //         }
+                    //     }
+                    // }
+
                     {
                         data: 'penalite',
                         name: 'penalite',
-                        render: function render(data, type, full, meta) {
 
-                            if (full.versements_ayant_reste_payer && full
-                                .versements_date_limite_paiement_depassee) {
-                                if (full.reste_apaye == 0) {
-                                    return '<span class=" label label-light-success label-inline fs-6">' + full
-                                        .penality2.toLocaleString('fr') + ' Fcfa</span>' +
-                                        '<span class="label label-light-primary label-inline fs-8 m-1"> Retard: ' +
-                                        full.joursApresDateLimite + ' jrs</span>';
-                                } else {
-                                    return '<span class=" label label-light-success label-inline fs-6">' + full
-                                        .penality.toLocaleString('fr') + ' Fcfa</span>' +
-                                        '<span class="label label-light-primary label-inline fs-8 m-1"> Retard: ' +
-                                        full.joursApresDateLimite + ' jrs</span>';
-                                }
-                            } else {
-                                return '<span class=" label label-light-success label-inline fs-6">' + data +
-                                    '</span>';
-                            }
+                        render: function render(data, type, full, meta) {
+                        var status = ' ';
+                        var label;
+                        var value = data;
+                        switch (value) {
+                            case full.res:
+                                label = "label-light-success";
+                                break;
+                            case 'Rejeté':
+                                label = "label-light-danger";
+                                break;
+                            default:
+                                label = "label-light-primary";
                         }
+
+                        if (typeof value === 'undefined') {
+                            return value;
+                        }
+                        status = status + ' ' + '<span class="label font-size-3 m-1 ' + label +
+                            ' label-inline">' + value +
+                            '</span>';
+
+                        return status;
+
+                    }
+
+                        // render: function render(data, type, full, meta) {
+
+                        //     if ( full.versements_ayant_reste_payer && full
+                        //         .versements_date_limite_paiement_depassee) {
+                        //         return '<span class=" label label-light-success label-inline fs-6">' + full
+                        //             .penality.toLocaleString('fr') + ' Fcfa' + '</span>' +
+                        //             '<span class="label label-light-primary label-inline fs-8 m-1"> Retard: ' +
+                        //             full.joursApresDateLimite + ' jrs</span>';
+                                
+                        //     } else if (full.reste_apaye == 0 ) {
+                        //         return '<span class=" label label-light-success label-inline fs-6">' + full
+                        //             .penality2.toLocaleString('fr') + ' Fcfa' + '</span>' +
+                        //             '<span class="label label-light-primary label-inline fs-8 m-1"> Retard: ' +
+                        //             full.joursApresDateLimite + ' jrs</span>';
+                                
+                        //     } else {
+                        //         return '<span class=" label label-light-success label-inline fs-6">' +
+                        //             data +
+                        //             '</span>';
+                        //     }
+
+
+                            
+                        // }
                     },
 
                     {

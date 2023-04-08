@@ -758,10 +758,9 @@ class VersementController extends Controller
 
         ];
 
-        $versement->montant_octroye                     = $request->montant_octroye;
-        $versement->reste_apaye                         = $request->montant_octroye;
+        $versement->montant_octroye = $request->montant_octroye;
         $versement->status_news_versement               = 'Renouvelé';
-        $versement->commission_verse                    = $request->montant_octroye * 14 / 100;
+        $versement->commission_verse  = $request->montant_octroye * 14 / 100;
         $versement->save();
 
         //Modification montant octroye lors du renouvelement

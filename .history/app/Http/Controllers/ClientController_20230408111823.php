@@ -128,10 +128,10 @@ class ClientController extends Controller
                 'adresse'               => 'required',
                 'activite_client'       => 'required',
                 'raison_du_pret'        => 'required',
-                'numb_cnib'             => 'required|unique:clients',
+                'numero_cnib' => 'required|unique:clients',
             ],
             [
-                'numb_cnib.unique' => 'Le numéro de CNIB existe déjà dans notre système. Veuillez entrer un autre numéro de CNIB.',
+                'numero_cnib.unique' => 'Le numéro de CNIB existe déjà dans notre système. Veuillez entrer un autre numéro de CNIB.',
             ]
         );
 
@@ -146,7 +146,7 @@ class ClientController extends Controller
         $client->first_phone        = $request->numero_1;
         $client->second_phone       = $request->numero_2;
         $client->date_naiss         = $request->date_naiss;
-        $client->numb_cnib          = $request->numb_cnib;
+        $client->numb_cnib          = $request->numero_cnib;
         $client->date_naiss         = $request->date_naiss;
         $client->adresse            = $request->adresse;
         $client->raison_pret        = $request->raison_du_pret;

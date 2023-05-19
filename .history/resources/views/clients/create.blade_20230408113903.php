@@ -165,7 +165,7 @@
                                                                 <label for="exampleInputPassword1">Numero CNID <span
                                                                         class="text-danger">*</span></label>
                                                                 <input type="text" class="form-control"
-                                                                    name="numb_cnib"
+                                                                    name="numero_cnib"
                                                                     placeholder="Entrer le numero de la CNIB">
                                                                 <span class="numb_cnib_err error text-danger"></span>
                                                             </div>

@@ -128,7 +128,7 @@ class ClientController extends Controller
                 'adresse'               => 'required',
                 'activite_client'       => 'required',
                 'raison_du_pret'        => 'required',
-                'numb_cnib'             => 'required|unique:clients',
+                'numb_cnib'           => 'required|unique:clients',
             ],
             [
                 'numb_cnib.unique' => 'Le numéro de CNIB existe déjà dans notre système. Veuillez entrer un autre numéro de CNIB.',
